@@ -17,7 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @RequestMapping(value = "/foods")
-public class ListController {
+public class FoodController {
 	
 	@Autowired
 	FoodListDao foodListDao;
@@ -27,23 +27,14 @@ public class ListController {
 	
 	
 	@ResponseBody
-	@RequestMapping(method=RequestMethod.GET, produces = "text/json; charset=UTF-8")
-	public String getAllFoodList(HttpServletRequest req, HttpServletResponse res) throws JsonProcessingException
+	@RequestMapping(method=RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	public String getFoodList(HttpServletRequest req, HttpServletResponse res, @RequestParam(value = "category", required = false) String category) throws JsonProcessingException
 	{
 		try {
-			jsonString = mapper.writeValueAsString(foodListDao.selectAllFood());
-		} catch (JsonProcessingException e) {
-			throw e;
-		}
-		return jsonString;
-	}
-	
-	@ResponseBody
-	@RequestMapping(params="category", method = RequestMethod.GET, produces = "text/json; charset=UTF-8")
-	public String getCategoryFoodList(HttpServletRequest req, HttpServletResponse res, @RequestParam("category") String category) throws JsonProcessingException
-	{
-		try {
-			jsonString = mapper.writeValueAsString(foodListDao.selectCategoryFood(category));
+			if(category==null)
+				jsonString = mapper.writeValueAsString(foodListDao.selectFoodList());
+			else
+				jsonString = mapper.writeValueAsString(foodListDao.selectFoodListByCategory(category));
 		} catch (JsonProcessingException e) {
 			throw e;
 		}

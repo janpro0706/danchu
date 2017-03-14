@@ -18,11 +18,11 @@ public class FoodListMapper implements FoodListDao {
 	
 	private static final String namespace = "Food";
 	
-	public List<Food> selectAllFood() {
+	public List<Food> selectFoodList() {
 		return sqlSession.selectList(namespace + ".getAllFoodList");
 	}
 	
-	public List<Food> selectCategoryFood(String category) {
+	public List<Food> selectFoodListByCategory(String category) {
 		return sqlSession.selectList(namespace + ".getCategoryFoodList", category);
 	}
 }

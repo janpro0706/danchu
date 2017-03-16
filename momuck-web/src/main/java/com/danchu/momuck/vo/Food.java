@@ -6,34 +6,25 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Food {
 	
-	@JsonProperty("seq") private int seq;
-	@JsonProperty("name") private String name;
-	@JsonProperty("price") private int price;
-	@JsonProperty("category") private String category;
-	@JsonProperty("avg_score") private float avgScore;	
-	@JsonProperty("image_main") private String imageMain;	
-	@JsonProperty("image_extra") private String imageExtra;	
-	@JsonProperty("created") private Date created;
-	@JsonProperty("restaurant_seq") private int restaurantSeq;
+	private int seq;
+	private String name;
+	private int price;
+	private String category;
 	
-	public Food() {
-		super();
-	}
-
-	public Food(int seq, String name, int price, String category, float avgScore, String imageMain, String imageExtra,
-			Date created, int restaurantSeq) {
-		super();
-		this.seq = seq;
-		this.name = name;
-		this.price = price;
-		this.category = category;
-		this.avgScore = avgScore;
-		this.imageMain = imageMain;
-		this.imageExtra = imageExtra;
-		this.created = created;
-		this.restaurantSeq = restaurantSeq;
-	}
-
+	@JsonProperty("avg_score") 
+	private float avgScore;
+	
+	@JsonProperty("image_main") 
+	private String imageMain;
+	
+	@JsonProperty("image_extra")
+	private String imageExtra;	
+	
+	private Date created;
+	
+	@JsonProperty("restaurant_seq") 
+	private int restaurantSeq;
+	
 	public int getSeq() {
 		return seq;
 	}

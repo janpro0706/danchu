@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.danchu.momuck.dao.FoodListDao;
+import com.danchu.momuck.service.FoodService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -20,24 +20,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class FoodController {
 	
 	@Autowired
-	FoodListDao foodListDao;
+	private FoodService foodService;
 	
 	private ObjectMapper mapper = new ObjectMapper();
-	private String jsonString;
-	
 	
 	@ResponseBody
 	@RequestMapping(method=RequestMethod.GET, produces = "application/json; charset=UTF-8")
-	public String getFoodList(HttpServletRequest req, HttpServletResponse res, @RequestParam(value = "category", required = false) String category) throws JsonProcessingException
+	public String list(HttpServletRequest req, HttpServletResponse res, 
+			@RequestParam(value = "category", required = false) String category,
+			@RequestParam(value = "page") int page) throws JsonProcessingException 
 	{
-		try {
-			if(category==null)
-				jsonString = mapper.writeValueAsString(foodListDao.selectFoodList());
-			else
-				jsonString = mapper.writeValueAsString(foodListDao.selectFoodListByCategory(category));
-		} catch (JsonProcessingException e) {
-			throw e;
-		}
-		return jsonString;
+		
+		return mapper.writeValueAsString(foodService.getFoodList(category, page));
 	}
 }

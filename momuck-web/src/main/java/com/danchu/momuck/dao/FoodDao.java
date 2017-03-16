@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.danchu.momuck.vo.Food;
 
-public interface FoodListDao {
-	public List<Food> selectFoodList();
-	public List<Food> selectFoodListByCategory(String category);
+public interface FoodDao {
+	public List<Food> selectFoodList(int page);
+	public List<Food> selectFoodListByCategory(String category, int page);
 }

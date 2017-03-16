@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="Food">
-	<select id="getAllFoodList" resultType="com.danchu.momuck.vo.Food">
+
+	<resultMap type="com.danchu.momuck.vo.Food" id="Food">
+		<result property="avgScore" column="avg_score"/>
+		<result property="imageMain" column="image_main"/>
+		<result property="imageExtra" column="image_extra"/>
+		<result property="restaurantSeq" column="restaurant_seq"/>
+	</resultMap>
+	
+	<select id="getAllFoodList" resultMap="Food">
 		select *
 		from food
+		order by created desc
+		limit #{offset}, 10 
 	</select>
 	
-	<select id="getCategoryFoodList" resultType="com.danchu.momuck.vo.Food">
+	<select id="getCategoryFoodList" resultMap="Food">
 		select *
 		from food
 		where category = #{category}
+		order by created desc
+		limit #{offset}, 10 
 	</select>
 </mapper>

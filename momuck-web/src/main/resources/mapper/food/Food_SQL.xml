@@ -11,17 +11,17 @@
 	</resultMap>
 	
 	<select id="getAllFoodList" resultMap="Food">
-		select *
-		from food
-		order by created desc
-		limit #{offset}, 10 
+		SELECT *
+		FROM food
+		ORDER BY created desc
+		LIMIT #{offset}, 10 
 	</select>
 	
 	<select id="getCategoryFoodList" resultMap="Food">
-		select *
-		from food
-		where category = #{category}
-		order by created desc
-		limit #{offset}, 10 
+		SELECT *
+		FROM food
+		WHERE category = #{category}
+		ORDER BY created desc
+		LIMIT #{offset}, 10 
 	</select>
 </mapper>

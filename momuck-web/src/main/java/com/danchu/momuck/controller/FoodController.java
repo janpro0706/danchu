@@ -1,6 +1,8 @@
 package com.danchu.momuck.controller;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,9 +14,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.danchu.momuck.service.FoodService;
+import com.danchu.momuck.view.ResultView;
+import com.danchu.momuck.vo.Account;
+import com.danchu.momuck.vo.Food;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+
+/**
+ * FoodController
+ * 
+ * @author lhbv1
+ */
 @Controller
 @RequestMapping(value = "/foods")
 public class FoodController {
@@ -26,11 +37,14 @@ public class FoodController {
 	
 	@ResponseBody
 	@RequestMapping(method=RequestMethod.GET, produces = "application/json; charset=UTF-8")
-	public String list(HttpServletRequest req, HttpServletResponse res, 
+	public ResultView list(HttpServletRequest req, HttpServletResponse res, 
 			@RequestParam(value = "category", required = false) String category,
 			@RequestParam(value = "page") int page) throws JsonProcessingException 
 	{
-		
-		return mapper.writeValueAsString(foodService.getFoodList(category, page));
+		 List<Food> result = foodService.getFoodList(category, page);
+	        if (result == null) {
+	        	return new ResultView("500", "No data", null);
+	        }
+	        return new ResultView("200", "Food list success", result);
 	}
 }

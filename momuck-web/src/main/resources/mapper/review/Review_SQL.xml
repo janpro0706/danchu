@@ -21,7 +21,8 @@
 	</insert>
 	
 	<update id="updateReview">
-	<!-- sql -->
+	UPDATE review SET score = #{score}, message = #{message}
+	WHERE seq = #{seq}
 	</update>
 	
 	<delete id="deleteReview">

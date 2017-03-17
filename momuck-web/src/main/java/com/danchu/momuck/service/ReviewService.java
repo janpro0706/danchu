@@ -12,7 +12,8 @@ import com.danchu.momuck.vo.Review;
 @Service
 public interface ReviewService {
 	
-	Review submitReview(Review review);
+	public Review submitReview(Review review);
+	public int updateReview(Review review);
 	
 	
 }

@@ -39,12 +39,15 @@ public class ReviewController {
         return new ResultView("500", "Server Internal Error");
     }
     
-    @RequestMapping(value = "/foods/{foods_id}/reviews/{reviews_id}", method = RequestMethod.PUT)
-    public String updateReivew(@PathVariable String foods_id, @PathVariable String reviews_id, HttpServletRequest rq, Model model) {
-    	model.addAttribute("foods_id", foods_id);
-    	
-    	
-        return "index";
+	@ResponseBody
+    @RequestMapping(value = "/foods/{foods_id}/reviews/{reviews_id}", method = RequestMethod.POST, consumes = "application/json")
+    public ResultView updateReivew(@PathVariable int reviews_id, @RequestBody Review review) {
+		review.setSeq(reviews_id);
+    	int result = reviewService.updateReview(review);
+    	if(result < 0){
+    		return new ResultView("500", "Server Internal Error");
+    	} 
+    	return new ResultView("200", "OK");
     }
     
     @RequestMapping(value = "/foods/{foods_id}/reviews/{reviews_id}", method = RequestMethod.DELETE)

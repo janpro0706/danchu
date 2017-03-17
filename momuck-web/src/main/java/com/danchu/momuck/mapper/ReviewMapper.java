@@ -25,9 +25,8 @@ public class ReviewMapper implements ReviewDao{
 		return review;
 	}
 
-	public void updateReview(int seq) {
-		// TODO Auto-generated method stub
-		sqlSessionTemplate.update(NAMESPACE + ".updateReview", seq);
+	public void updateReview(Review review) {
+		sqlSessionTemplate.update(NAMESPACE + ".updateReview", review);
 	}
 
 	public void deleteRevew(int seq) {
@@ -40,5 +39,4 @@ public class ReviewMapper implements ReviewDao{
 		int rest_seq = sqlSessionTemplate.selectOne(NAMESPACE + ".selectRestSeq", food_seq);
 		return rest_seq;
 	}
-
 }

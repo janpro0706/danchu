@@ -29,6 +29,15 @@ public class ReviewServiceImpl implements ReviewService {
 		review.setFood_restaurant_seq(restSeq);
 		return reviewDao.submitReview(review);
 	}
+
+	public int updateReview(Review review) {
+		try{
+		reviewDao.updateReview(review);
+		}catch (Exception e) {
+			return  -1;
+		}
+		return 0;
+	}
 	
 
 }

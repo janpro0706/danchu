@@ -1,0 +1,34 @@
+package com.danchu.momuck.service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ImportResource;
+import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+
+import com.danchu.momuck.dao.ReviewDao;
+import com.danchu.momuck.vo.Review;
+
+@Service
+public class ReviewServiceImpl implements ReviewService {
+	
+	Logger log = Logger.getLogger(this.getClass());
+
+	@Autowired
+	private ReviewDao reviewDao;
+
+	public Review submitReview(Review review) {
+		//get food_restaurant_seq
+		int restSeq = reviewDao.getRestarantSeq(review.getFood_seq());
+		review.setFood_restaurant_seq(restSeq);
+		return reviewDao.submitReview(review);
+	}
+	
+
+}

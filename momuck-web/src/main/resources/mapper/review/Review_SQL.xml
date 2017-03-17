@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Review">
+
+	<resultMap type="com.danchu.momuck.vo.Review" id="Review">
+        <result property="seq" column="seq"/>
+        <result property="score" column="score"/>
+        <result property="message" column="message"/>
+        <result property="user_seq" column="user_seq"/>
+        <result property="food_seq" column="food_seq"/>
+        <result property="food_restaurant_seq" column="food_restaurant_seq"/>
+    </resultMap>
+	
+	<select id="selectReview">
+	<!-- sql -->
+	</select>
+	
+	<insert id="insertReview">
+	INSERT INTO review (score, message, user_seq, food_seq, food_restaurant_seq) 
+	VALUES (#{score}, #{message}, #{user_seq}, #{food_seq}, #{food_restaurant_seq})
+	</insert>
+	
+	<update id="updateReview">
+	<!-- sql -->
+	</update>
+	
+	<delete id="deleteReview">
+	<!-- sql -->
+	</delete>
+	
+	<select id="selectRestSeq" resultType="int">
+	select restaurant_seq 
+	from food
+	where seq=#{food_seq}
+	</select>
+	
+</mapper>

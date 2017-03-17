@@ -1,5 +1,7 @@
 package com.danchu.momuck.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,9 +62,10 @@ public class ReviewController {
     	return new ResultView("200", "OK");
     }
     
+	@ResponseBody
     @RequestMapping(value = "/foods/{foods_id}/reviews", method = RequestMethod.GET)
-    public String getReviewList(@PathVariable String foods_id, Model model) {
-    
-        return "index";
+    public List<Review> getReviewList(@PathVariable int foods_id) {
+    	return reviewService.selectReviewList(foods_id);
+        
     }
 }

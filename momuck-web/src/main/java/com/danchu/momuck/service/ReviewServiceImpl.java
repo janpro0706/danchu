@@ -47,6 +47,10 @@ public class ReviewServiceImpl implements ReviewService {
 		}
 		return 0;
 	}
+
+	public List<Review> selectReviewList(int foodSeq) {
+		return reviewDao.selectReviewList(foodSeq);
+	}
 	
 
 }

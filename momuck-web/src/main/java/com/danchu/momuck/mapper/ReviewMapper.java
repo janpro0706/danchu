@@ -1,5 +1,7 @@
 package com.danchu.momuck.mapper;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -15,11 +17,6 @@ public class ReviewMapper implements ReviewDao{
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	public void listReview() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public Review submitReview(Review review) {
 		sqlSessionTemplate.insert(NAMESPACE + ".insertReview", review);
 		return review;
@@ -33,8 +30,12 @@ public class ReviewMapper implements ReviewDao{
 		sqlSessionTemplate.insert(NAMESPACE + ".deleteReview", seq);
 	}
 
-	public int getRestarantSeq(int food_seq) {
-		int rest_seq = sqlSessionTemplate.selectOne(NAMESPACE + ".selectRestSeq", food_seq);
+	public int getRestarantSeq(int foodSeq) {
+		int rest_seq = sqlSessionTemplate.selectOne(NAMESPACE + ".selectRestSeq", foodSeq);
 		return rest_seq;
+	}
+
+	public List<Review> selectReviewList(int foodSeq) {
+		return sqlSessionTemplate.selectList(NAMESPACE + ".selectReview", foodSeq);
 	}
 }

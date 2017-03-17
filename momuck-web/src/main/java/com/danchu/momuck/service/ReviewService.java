@@ -15,6 +15,7 @@ public interface ReviewService {
 	public Review submitReview(Review review);
 	public int updateReview(Review review);
 	public int deleteReview(int seq);
+	public List<Review> selectReviewList(int foodSeq);
 	
 	
 }

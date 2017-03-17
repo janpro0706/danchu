@@ -11,8 +11,8 @@
         <result property="foodRestaurantSeq" column="food_restaurant_seq"/>
     </resultMap>
 	
-	<select id="selectReview">
-	<!-- sql -->
+	<select id="selectReview" resultMap="Review">
+	SELECT * FROM review WHERE food_seq = #{foodSeq}
 	</select>
 	
 	<insert id="insertReview">

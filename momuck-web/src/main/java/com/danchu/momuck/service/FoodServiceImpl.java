@@ -10,6 +10,12 @@ import org.springframework.stereotype.Service;
 import com.danchu.momuck.dao.FoodDao;
 import com.danchu.momuck.vo.Food;
 
+
+/**
+ * FoodServiceImpl
+ * 
+ * @author lhbv1
+ */
 @Service
 public class FoodServiceImpl implements FoodService {
 
@@ -19,7 +25,6 @@ public class FoodServiceImpl implements FoodService {
 	private FoodDao foodDao;
 
 	public List<Food> getFoodList(String category, int page) {
-		LOG.info("getFoodList");
 		if (category == null)
 			return foodDao.selectFoodList(page);
 		else

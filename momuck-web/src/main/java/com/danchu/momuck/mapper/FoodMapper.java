@@ -10,6 +10,12 @@ import org.springframework.stereotype.Repository;
 import com.danchu.momuck.dao.FoodDao;
 import com.danchu.momuck.vo.Food;
 
+
+/**
+ * FoodMapper
+ * 
+ * @author lhbv1
+ */
 @Repository
 public class FoodMapper implements FoodDao {
 	

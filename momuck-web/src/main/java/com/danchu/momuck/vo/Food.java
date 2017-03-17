@@ -4,6 +4,12 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
+/**
+ * Food
+ * 
+ * @author lhbv1
+ */
 public class Food {
 	
 	private int seq;

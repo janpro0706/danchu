@@ -12,7 +12,9 @@
     </resultMap>
 	
 	<select id="selectReview" resultMap="Review">
-	SELECT * FROM review WHERE food_seq = #{foodSeq}
+	SELECT * FROM review 
+	WHERE food_seq = #{foodSeq}
+	ORDER BY created DESC
 	</select>
 	
 	<insert id="insertReview">

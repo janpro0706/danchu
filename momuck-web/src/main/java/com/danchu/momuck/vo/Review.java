@@ -8,9 +8,9 @@ public class Review {
 	float score;
 	String message;
 	Timestamp created;
-	int user_seq;
-	int food_seq;
-	int food_restaurant_seq;
+	int userSeq;
+	int foodSeq;
+	int foodRestaurantSeq;
 	
 	public Review(){
 		
@@ -40,23 +40,24 @@ public class Review {
 	public void setCreated(Timestamp created) {
 		this.created = created;
 	}
-	public int getUser_seq() {
-		return user_seq;
+	public int getUserSeq() {
+		return userSeq;
 	}
-	public void setUser_seq(int user_seq) {
-		this.user_seq = user_seq;
+	public void setUserSeq(int userSeq) {
+		this.userSeq = userSeq;
 	}
-	public int getFood_seq() {
-		return food_seq;
+	public int getFoodSeq() {
+		return foodSeq;
 	}
-	public void setFood_seq(int food_seq) {
-		this.food_seq = food_seq;
+	public void setFoodSeq(int foodSeq) {
+		this.foodSeq = foodSeq;
 	}
-	public int getFood_restaurant_seq() {
-		return food_restaurant_seq;
+	public int getFoodRestaurantSeq() {
+		return foodRestaurantSeq;
 	}
-	public void setFood_restaurant_seq(int food_restaurant_seq) {
-		this.food_restaurant_seq = food_restaurant_seq;
+	public void setFoodRestaurantSeq(int foodRestaurantSeq) {
+		this.foodRestaurantSeq = foodRestaurantSeq;
 	}
+	
 	
 }

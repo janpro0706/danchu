@@ -28,8 +28,8 @@ public class ReviewController {
     @RequestMapping(value = "/foods/{foods_id}/reviews", method = RequestMethod.POST, consumes = "application/json")
     public ResultView submitReview(@PathVariable int foods_id,@RequestBody Review review) {
     	 
-    	review.setUser_seq(USER_SEQ);
-    	review.setFood_seq(foods_id);
+    	review.setUserSeq(USER_SEQ);
+    	review.setFoodSeq(foods_id);
     	
     	Review result = reviewService.submitReview(review);
     	if(result!=null){

@@ -6,9 +6,9 @@
         <result property="seq" column="seq"/>
         <result property="score" column="score"/>
         <result property="message" column="message"/>
-        <result property="user_seq" column="user_seq"/>
-        <result property="food_seq" column="food_seq"/>
-        <result property="food_restaurant_seq" column="food_restaurant_seq"/>
+        <result property="userSeq" column="user_seq"/>
+        <result property="foodSeq" column="food_seq"/>
+        <result property="foodRestaurantSeq" column="food_restaurant_seq"/>
     </resultMap>
 	
 	<select id="selectReview">
@@ -17,7 +17,7 @@
 	
 	<insert id="insertReview">
 	INSERT INTO review (score, message, user_seq, food_seq, food_restaurant_seq) 
-	VALUES (#{score}, #{message}, #{user_seq}, #{food_seq}, #{food_restaurant_seq})
+	VALUES (#{score}, #{message}, #{userSeq}, #{foodSeq}, #{foodRestaurantSeq})
 	</insert>
 	
 	<update id="updateReview">
@@ -32,7 +32,7 @@
 	<select id="selectRestSeq" resultType="int">
 	select restaurant_seq 
 	from food
-	where seq=#{food_seq}
+	where seq=#{foodSeq}
 	</select>
 	
 </mapper>

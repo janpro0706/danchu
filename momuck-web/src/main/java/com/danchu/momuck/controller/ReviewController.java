@@ -40,7 +40,7 @@ public class ReviewController {
     }
     
 	@ResponseBody
-    @RequestMapping(value = "/foods/{foods_id}/reviews/{reviews_id}", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(value = "/foods/{foods_id}/reviews/{reviews_id}", method = RequestMethod.PUT, consumes = "application/json")
     public ResultView updateReivew(@PathVariable int reviews_id, @RequestBody Review review) {
 		review.setSeq(reviews_id);
     	int result = reviewService.updateReview(review);
@@ -50,18 +50,19 @@ public class ReviewController {
     	return new ResultView("200", "OK");
     }
     
+	@ResponseBody
     @RequestMapping(value = "/foods/{foods_id}/reviews/{reviews_id}", method = RequestMethod.DELETE)
-    public String deleteReivew(@PathVariable String foods_id, @PathVariable String reviews_id, Model model) {
-    	model.addAttribute("foods_id", foods_id);
-    	
-        return "index";
+    public ResultView deleteReivew(@PathVariable int reviews_id) {
+    	int result = reviewService.deleteReview(reviews_id);
+    	if(result < 0){
+    		return new ResultView("500", "Server Internal Error");
+    	} 
+    	return new ResultView("200", "OK");
     }
     
     @RequestMapping(value = "/foods/{foods_id}/reviews", method = RequestMethod.GET)
     public String getReviewList(@PathVariable String foods_id, Model model) {
     
-    	//ArrayList<Review> reviews = reviewService.listReview(model);
-    	//model.addAttribute("list", reviews);
         return "index";
     }
 }

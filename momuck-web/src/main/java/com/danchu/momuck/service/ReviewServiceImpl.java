@@ -32,7 +32,16 @@ public class ReviewServiceImpl implements ReviewService {
 
 	public int updateReview(Review review) {
 		try{
-		reviewDao.updateReview(review);
+			reviewDao.updateReview(review);
+		}catch (Exception e) {
+			return  -1;
+		}
+		return 0;
+	}
+
+	public int deleteReview(int seq) {
+		try{
+			reviewDao.deleteReview(seq);
 		}catch (Exception e) {
 			return  -1;
 		}

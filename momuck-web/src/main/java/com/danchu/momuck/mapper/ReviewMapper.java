@@ -29,13 +29,11 @@ public class ReviewMapper implements ReviewDao{
 		sqlSessionTemplate.update(NAMESPACE + ".updateReview", review);
 	}
 
-	public void deleteRevew(int seq) {
-		// TODO Auto-generated method stub
-		sqlSessionTemplate.insert(NAMESPACE + ".deleteReview",seq);
+	public void deleteReview(int seq) {
+		sqlSessionTemplate.insert(NAMESPACE + ".deleteReview", seq);
 	}
 
 	public int getRestarantSeq(int food_seq) {
-		// TODO Auto-generated method stub
 		int rest_seq = sqlSessionTemplate.selectOne(NAMESPACE + ".selectRestSeq", food_seq);
 		return rest_seq;
 	}

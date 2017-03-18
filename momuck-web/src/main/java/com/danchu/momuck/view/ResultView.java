@@ -2,33 +2,54 @@ package com.danchu.momuck.view;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * ResultView
+ *
+ * @author geine
+ */
 public class ResultView {
-	
-	@JsonProperty
-	private String code;
-	
-	@JsonProperty
-	private String message;
-	
-	public ResultView(String code, String message) {
-		super();
-		this.code = code;
-		this.message = message;
-	}
-	public String getCode() {
-		return code;
-	}
-	public void setCode(String code) {
-		this.code = code;
-	}
-	public String getMessage() {
-		return message;
-	}
-	public void setMessage(String message) {
-		this.message = message;
-	}
-	@Override
-	public String toString() {
-		return "ResultView [code=" + code + ", message=" + message + "]";
-	}
+
+    private String code;
+    private String message;
+    private Object data;
+
+    @JsonProperty("code")
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    @JsonProperty("message")
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    @JsonProperty(value = "data")
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
+    }
+
+    public ResultView(String code, String message, Object data) {
+        super();
+        this.code = code;
+        this.message = message;
+        this.data = data;
+    }
+
+    @Override
+    public String toString() {
+        return "ResultView [code=" + code + ", message=" + message + "]";
+    }
 }
+

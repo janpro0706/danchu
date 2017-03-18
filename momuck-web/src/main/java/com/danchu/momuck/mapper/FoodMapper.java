@@ -22,16 +22,16 @@ public class FoodMapper implements FoodDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	private HashMap<String, Object> map = new HashMap<String, Object>();
-	
 	private static final String namespace = "Food";
 	
 	public List<Food> selectFoodList(int page) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("offset", 0+10*(page-1));
 		return sqlSession.selectList(namespace + ".getAllFoodList", map);
 	}
 	
 	public List<Food> selectFoodListByCategory(String category, int page) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("offset", 0+10*(page-1));
 		map.put("category", category);
 		return sqlSession.selectList(namespace + ".getCategoryFoodList", map);

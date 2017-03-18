@@ -1,6 +1,5 @@
 package com.danchu.momuck.controller;
 
-
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,11 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.danchu.momuck.service.FoodService;
 import com.danchu.momuck.view.ResultView;
-import com.danchu.momuck.vo.Account;
 import com.danchu.momuck.vo.Food;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 
 /**
  * FoodController
@@ -29,22 +25,26 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Controller
 @RequestMapping(value = "/foods")
 public class FoodController {
-	
+
 	@Autowired
 	private FoodService foodService;
-	
-	private ObjectMapper mapper = new ObjectMapper();
-	
+
 	@ResponseBody
-	@RequestMapping(method=RequestMethod.GET, produces = "application/json; charset=UTF-8")
-	public ResultView list(HttpServletRequest req, HttpServletResponse res, 
-			@RequestParam(value = "category", required = false) String category,
-			@RequestParam(value = "page") int page) throws JsonProcessingException 
-	{
-		 List<Food> result = foodService.getFoodList(category, page);
-	        if (result == null) {
-	        	return new ResultView("500", "No data", null);
-	        }
-	        return new ResultView("200", "Food list success", result);
+	@RequestMapping(method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	public ResultView list(HttpServletRequest req, HttpServletResponse res,
+			@RequestParam(value = "category", required = false) String category, 
+			@RequestParam(value = "page") int page) throws JsonProcessingException {
+		List<Food> result = foodService.getFoodList(category, page);
+		
+		//page validation
+		if (page<=0) {
+			return new ResultView("500", "Wrong page number", null);
+		}
+		
+		//data check
+		if (result == null) {
+			return new ResultView("500", "No data", null);
+		}
+		return new ResultView("200", "Food list success", result);
 	}
 }

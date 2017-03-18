@@ -73,7 +73,7 @@ public class ReviewControllerTest {
 	public void updateReview() throws Exception {
 		
 		reviews_id = 1;
-		score = (float) 2.0;
+		score = (float) 1.0;
 		message = "update test";
 
 		String jsonParm = "{" +

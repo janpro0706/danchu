@@ -1,20 +1,24 @@
 package com.danchu.momuck.vo;
 
-import java.sql.Timestamp;
+import java.sql.Date;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Review {
 	
 	int seq;
 	float score;
 	String message;
-	Timestamp created;
-	int userSeq;
-	int foodSeq;
-	int foodRestaurantSeq;
+	Date created;
 	
-	public Review(){
-		
-	}
+	@JsonProperty("user_seq")
+	int userSeq;
+	
+	@JsonProperty("food_seq")
+	int foodSeq;
+	
+	@JsonProperty("food_restaurant_seq")
+	int foodRestaurantSeq;
 	
 	public int getSeq() {
 		return seq;
@@ -34,10 +38,10 @@ public class Review {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public Timestamp getCreated() {
+	public Date getCreated() {
 		return created;
 	}
-	public void setCreated(Timestamp created) {
+	public void setCreated(Date created) {
 		this.created = created;
 	}
 	public int getUserSeq() {

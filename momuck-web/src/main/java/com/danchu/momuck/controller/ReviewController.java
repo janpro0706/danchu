@@ -34,11 +34,10 @@ public class ReviewController {
     	review.setFoodSeq(foods_id);
     	
     	Review result = reviewService.submitReview(review);
-    	if(result!=null){
-    		return new ResultView("200", "OK");
+    	if(result == null){
+    		return new ResultView("500", "Server Internal Error", null);
     	} 
-    	 
-        return new ResultView("500", "Server Internal Error");
+    	return new ResultView("200", "OK", result);
     }
     
 	@ResponseBody
@@ -47,9 +46,9 @@ public class ReviewController {
 		review.setSeq(reviews_id);
     	int result = reviewService.updateReview(review);
     	if(result < 0){
-    		return new ResultView("500", "Server Internal Error");
+    		return new ResultView("500", "Server Internal Error", null);
     	} 
-    	return new ResultView("200", "OK");
+    	return new ResultView("200", "OK", null);
     }
     
 	@ResponseBody
@@ -57,15 +56,19 @@ public class ReviewController {
     public ResultView deleteReivew(@PathVariable int reviews_id) {
     	int result = reviewService.deleteReview(reviews_id);
     	if(result < 0){
-    		return new ResultView("500", "Server Internal Error");
+    		return new ResultView("500", "Server Internal Error", null);
     	} 
-    	return new ResultView("200", "OK");
+    	return new ResultView("200", "OK", null);
     }
     
 	@ResponseBody
     @RequestMapping(value = "/foods/{foods_id}/reviews", method = RequestMethod.GET)
-    public List<Review> getReviewList(@PathVariable int foods_id) {
-    	return reviewService.selectReviewList(foods_id);
+    public ResultView getReviewList(@PathVariable int foods_id) {
+		
+    	List<Review> result = reviewService.selectReviewList(foods_id);
+    	if(result == null)
+    		return new ResultView("500", "No data", null);
+    	return new ResultView("200", "OK", result);
         
     }
 }

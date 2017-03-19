@@ -70,6 +70,20 @@ public class ReviewControllerTest {
 
 		reviews_id = insertedReview.getSeq();
 	}
+	
+	@Test
+	public void selectDetailReview() throws Exception {
+
+		MvcResult result = this.mockMvc
+				.perform(get("/foods/{foods_id}/reviews/{reviews_id}", foods_id, reviews_id)
+						.contentType(MediaType.APPLICATION_JSON).content(jsonParm))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType("application/json;charset=UTF-8"))
+				.andExpect(jsonPath("$", hasKey("code")))
+				.andExpect(jsonPath("$.code").value("200"))
+				.andReturn();
+		
+	}
 
 	@Test
 	public void updateReview() throws Exception {

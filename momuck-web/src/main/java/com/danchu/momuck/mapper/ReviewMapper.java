@@ -41,4 +41,8 @@ public class ReviewMapper implements ReviewDao {
 	public List<Review> selectReviewList(int foodSeq) {
 		return sqlSessionTemplate.selectList(NAMESPACE + ".selectReview", foodSeq);
 	}
+
+	public Review selectReview(int seq) {
+		return sqlSessionTemplate.selectOne(NAMESPACE + ".selectDetailReview", seq);
+	}
 }

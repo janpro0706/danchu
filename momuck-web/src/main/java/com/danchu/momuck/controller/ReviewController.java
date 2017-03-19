@@ -72,4 +72,16 @@ public class ReviewController {
 		return new ResultView("200", "OK", result);
 
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/foods/{foods_id}/reviews/{reviews_id}", method = RequestMethod.GET)
+	public ResultView getReview(@PathVariable int reviews_id) {
+
+		Review result = reviewService.selectReview(reviews_id);
+		if (result == null) {
+			return new ResultView("500", "No data", null);
+		}
+		return new ResultView("200", "OK", result);
+
+	}
 }

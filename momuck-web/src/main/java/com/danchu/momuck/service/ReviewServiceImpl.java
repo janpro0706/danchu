@@ -44,5 +44,9 @@ public class ReviewServiceImpl implements ReviewService {
 	public List<Review> selectReviewList(int foodSeq) {
 		return reviewDao.selectReviewList(foodSeq);
 	}
+	
+	public Review selectReview(int seq) {
+		return reviewDao.selectReview(seq);
+	}
 
 }

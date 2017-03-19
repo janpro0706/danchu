@@ -14,5 +14,6 @@ public interface ReviewDao {
 	public int updateReview(Review review);
 	public int deleteReview(int seq);
 	public List<Review> selectReviewList(int foodSeq);
+	public Review selectReview(int seq);
 	
 }

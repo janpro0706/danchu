@@ -17,6 +17,11 @@
 	ORDER BY created DESC
 	</select>
 	
+	<select id="selectDetailReview" resultMap="Review">
+	SELECT * FROM review
+	WHERE seq = #{seq}
+	</select>
+	
 	<insert id="insertReview">
 	<selectKey resultType="integer" keyProperty="seq" order="AFTER">
 	SELECT LAST_INSERT_ID()

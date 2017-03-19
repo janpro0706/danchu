@@ -9,11 +9,10 @@ import com.danchu.momuck.vo.Review;
 @Repository
 public interface ReviewDao {
 	
-	
 	public Review submitReview(Review review);
 	public int getRestarantSeq(int foodSeq);
-	public void updateReview(Review review);
-	public void deleteReview(int seq);
+	public int updateReview(Review review);
+	public int deleteReview(int seq);
 	public List<Review> selectReviewList(int foodSeq);
 	
 }

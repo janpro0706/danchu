@@ -2,6 +2,8 @@ package com.danchu.momuck.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,10 +19,12 @@ import com.danchu.momuck.vo.Review;
 @Controller
 public class ReviewController {
 
-	final private int USER_SEQ = 19;
+	private static final Logger Log = LoggerFactory.getLogger(ReviewController.class);
+
+	private static final int USER_SEQ = 19;
 
 	@Autowired
-	ReviewService reviewService;
+	private ReviewService reviewService;
 
 	@ResponseBody
 	@RequestMapping(value = "/foods/{foods_id}/reviews", method = RequestMethod.POST, consumes = "application/json")
@@ -62,8 +66,9 @@ public class ReviewController {
 	public ResultView getReviewList(@PathVariable int foods_id) {
 
 		List<Review> result = reviewService.selectReviewList(foods_id);
-		if (result == null)
+		if (result == null) {
 			return new ResultView("500", "No data", null);
+		}
 		return new ResultView("200", "OK", result);
 
 	}

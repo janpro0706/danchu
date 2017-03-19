@@ -6,19 +6,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Review {
 	
-	int seq;
-	float score;
-	String message;
-	Date created;
+	private int seq;
+	private float score;
+	private String message;
+	private Date created;
 	
 	@JsonProperty("user_seq")
-	int userSeq;
+	private int userSeq;
 	
 	@JsonProperty("food_seq")
-	int foodSeq;
+	private int foodSeq;
 	
 	@JsonProperty("food_restaurant_seq")
-	int foodRestaurantSeq;
+	private int foodRestaurantSeq;
 	
 	public int getSeq() {
 		return seq;

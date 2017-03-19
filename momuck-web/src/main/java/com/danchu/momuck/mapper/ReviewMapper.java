@@ -3,31 +3,34 @@ package com.danchu.momuck.mapper;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.danchu.momuck.vo.Review;
 import com.danchu.momuck.dao.ReviewDao;
+import com.danchu.momuck.vo.Review;
 
 @Repository
-public class ReviewMapper implements ReviewDao{
+public class ReviewMapper implements ReviewDao {
 
+	private static final Logger LOG = LoggerFactory.getLogger(ReviewMapper.class);
 	private static final String NAMESPACE = "Review";
-	
+
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
-	
+
 	public Review submitReview(Review review) {
 		sqlSessionTemplate.insert(NAMESPACE + ".insertReview", review);
 		return review;
 	}
 
-	public void updateReview(Review review) {
-		sqlSessionTemplate.update(NAMESPACE + ".updateReview", review);
+	public int updateReview(Review review) {
+		return sqlSessionTemplate.update(NAMESPACE + ".updateReview", review);
 	}
 
-	public void deleteReview(int seq) {
-		sqlSessionTemplate.insert(NAMESPACE + ".deleteReview", seq);
+	public int deleteReview(int seq) {
+		return sqlSessionTemplate.insert(NAMESPACE + ".deleteReview", seq);
 	}
 
 	public int getRestarantSeq(int foodSeq) {

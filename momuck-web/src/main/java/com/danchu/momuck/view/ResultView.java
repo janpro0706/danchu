@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.danchu.momuck.view;
 
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -32,9 +32,9 @@
 	</delete>
 	
 	<select id="selectRestSeq" resultType="int">
-	select restaurant_seq 
-	from food
-	where seq=#{foodSeq}
+	SELECT restaurant_seq 
+	FROM food
+	WHERE seq = #{foodSeq}
 	</select>
 	
 </mapper>

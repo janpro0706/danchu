@@ -18,6 +18,9 @@
 	</select>
 	
 	<insert id="insertReview">
+	<selectKey resultType="integer" keyProperty="seq" order="AFTER">
+	SELECT LAST_INSERT_ID()
+	</selectKey>
 	INSERT INTO review (score, message, user_seq, food_seq, food_restaurant_seq) 
 	VALUES (#{score}, #{message}, #{userSeq}, #{foodSeq}, #{foodRestaurantSeq})
 	</insert>

@@ -11,8 +11,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.apache.log4j.Logger;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
+import org.junit.runners.Parameterized.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
@@ -33,7 +36,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class ReviewControllerTest {
 
 	private int foods_id = 1;
-	private int reviews_id;
+	private int reviews_id = 1;
 
 	private static final float SCORE = (float) 5.0;
 	private static final String MESSAGE = "test";
@@ -61,14 +64,7 @@ public class ReviewControllerTest {
 				.andExpect(jsonPath("$", hasKey("code")))
 				.andExpect(jsonPath("$.code").value("200"))
 				.andReturn();
-
-		String json = result.getResponse().getContentAsString();
-
-		ObjectMapper mapper = new ObjectMapper();
-		JsonNode node = mapper.readTree(json);
-		Review insertedReview = mapper.readValue(node.get("data").toString(), Review.class);
-
-		reviews_id = insertedReview.getSeq();
+		
 	}
 	
 	@Test

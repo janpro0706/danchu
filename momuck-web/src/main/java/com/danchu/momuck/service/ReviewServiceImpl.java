@@ -26,19 +26,19 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	public int updateReview(Review review) {
-		try {
-			return reviewDao.updateReview(review);
-		} catch (Exception e) {
+		int updatedCount = reviewDao.updateReview(review);
+		if(updatedCount > 0)
+			return updatedCount;
+		else
 			return -1;
-		}
 	}
 
 	public int deleteReview(int seq) {
-		try {
-			return reviewDao.deleteReview(seq);
-		} catch (Exception e) {
+		int deletedCount = reviewDao.deleteReview(seq);
+		if(deletedCount > 0)
+			return deletedCount;
+		else 
 			return -1;
-		}
 	}
 
 	public List<Review> selectReviewList(int foodSeq) {

@@ -9,13 +9,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.apache.log4j.Logger;
+import com.danchu.momuck.view.ResultView;
+import com.danchu.momuck.vo.Review;
 import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
-import org.junit.runners.Parameterized.Parameter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
@@ -26,93 +26,80 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.danchu.momuck.vo.Review;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.LinkedHashMap;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(locations = { "classpath:/root-context.xml", "classpath:servlet-context.xml" })
+@ContextConfiguration(locations = {"classpath:/root-context.xml", "classpath:servlet-context.xml"})
 public class ReviewControllerTest {
 
-	private int foods_id = 1;
-	private int reviews_id = 1;
+    private static final int FOOD_SEQ = 1;
+    private static final float SCORE = (float) 5.0;
+    private static final String MESSAGE = "test";
+    private static final Logger LOG = LoggerFactory.getLogger(ReviewControllerTest.class);
 
-	private static final float SCORE = (float) 5.0;
-	private static final String MESSAGE = "test";
+    @Autowired
+    private WebApplicationContext wac;
 
-	String jsonParm = "{" + "\"score\" : \"" + SCORE + "\"," + "\"message\" : \"" + MESSAGE + "\"" + "}";
+    private MockMvc mockMvc;
 
-	@Autowired
-	private WebApplicationContext wac;
+    @Before
+    public void setUp() throws Exception {
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+    }
 
-	private MockMvc mockMvc;
+    @Test
+    public void submitAndSelectAndDeleteReview() throws Exception {
+        String jsonParm = "{" + "\"score\" : \"" + SCORE + "\"," + "\"message\" : \"" + MESSAGE + "\"" + "}";
+        MvcResult result = this.mockMvc
+                .perform(post("/foods/{foods_id}/reviews", FOOD_SEQ).contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonParm))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andExpect(jsonPath("$", hasKey("code")))
+                .andExpect(jsonPath("$.code").value("200"))
+                .andReturn();
 
-	@Before
-	public void setUp() throws Exception {
-		this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-	}
+        String content = result.getResponse().getContentAsString();
+        ObjectMapper mapper = new ObjectMapper();
+        ResultView resultView = mapper.readValue(content, ResultView.class);
+        LinkedHashMap<String, Object> map = (LinkedHashMap<String, Object>) resultView.getData();
+        Review review = new Review();
+        review.setSeq((Integer) map.get("seq"));
 
-	@Test
-	public void submitReview() throws Exception {
+        this.mockMvc
+                .perform(get("/foods/{foods_id}/reviews/{reviews_id}", FOOD_SEQ, review.getSeq())
+                        .contentType(MediaType.APPLICATION_JSON).content(jsonParm))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andExpect(jsonPath("$", hasKey("code")))
+                .andExpect(jsonPath("$.code").value("200"))
+                .andReturn();
 
-		MvcResult result = this.mockMvc
-				.perform(post("/foods/{foods_id}/reviews", foods_id).contentType(MediaType.APPLICATION_JSON)
-						.content(jsonParm))
-				.andExpect(status().isOk())
-				.andExpect(content().contentType("application/json;charset=UTF-8"))
-				.andExpect(jsonPath("$", hasKey("code")))
-				.andExpect(jsonPath("$.code").value("200"))
-				.andReturn();
-		
-	}
-	
-	@Test
-	public void selectDetailReview() throws Exception {
+        this.mockMvc.perform(get("/foods/{foods_id}/reviews", FOOD_SEQ)).andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andExpect(jsonPath("$", hasKey("code")))
+                .andExpect(jsonPath("$.code").value("200"))
+                .andReturn();
 
-		MvcResult result = this.mockMvc
-				.perform(get("/foods/{foods_id}/reviews/{reviews_id}", foods_id, reviews_id)
-						.contentType(MediaType.APPLICATION_JSON).content(jsonParm))
-				.andExpect(status().isOk())
-				.andExpect(content().contentType("application/json;charset=UTF-8"))
-				.andExpect(jsonPath("$", hasKey("code")))
-				.andExpect(jsonPath("$.code").value("200"))
-				.andReturn();
-		
-	}
+        this.mockMvc
+                .perform(put("/foods/{foods_id}/reviews/{reviews_id}", FOOD_SEQ, review.getSeq())
+                        .contentType(MediaType.APPLICATION_JSON).content(jsonParm))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andExpect(jsonPath("$", hasKey("code")))
+                .andExpect(jsonPath("$.code").value("200"))
+                .andReturn();
 
-	@Test
-	public void updateReview() throws Exception {
+        this.mockMvc.perform(delete("/foods/{foods_id}/reviews/{reviews_id}", FOOD_SEQ, review.getSeq()))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andExpect(jsonPath("$", hasKey("code")))
+                .andExpect(jsonPath("$.code").value("200"))
+                .andReturn();
 
-		this.mockMvc
-				.perform(put("/foods/{foods_id}/reviews/{reviews_id}", foods_id, reviews_id)
-						.contentType(MediaType.APPLICATION_JSON).content(jsonParm))
-				.andExpect(status().isOk())
-				.andExpect(content().contentType("application/json;charset=UTF-8"))
-				.andExpect(jsonPath("$", hasKey("code")))
-				.andExpect(jsonPath("$.code").value("200"))
-				.andReturn();
-	}
-
-	@Test
-	public void deleteReview() throws Exception {
-
-		this.mockMvc.perform(delete("/foods/{foods_id}/reviews/{reviews_id}", foods_id, reviews_id))
-				.andExpect(status().isOk())
-				.andExpect(content().contentType("application/json;charset=UTF-8"))
-				.andExpect(jsonPath("$", hasKey("code")))
-				.andExpect(jsonPath("$.code").value("200"))
-				.andReturn();
-	}
-
-	@Test
-	public void selectReview() throws Exception {
-
-		this.mockMvc.perform(get("/foods/{foods_id}/reviews", foods_id)).andExpect(status().isOk())
-				.andExpect(content().contentType("application/json;charset=UTF-8"))
-				.andExpect(jsonPath("$", hasKey("code")))
-				.andExpect(jsonPath("$.code").value("200"))
-				.andReturn();
-
-	}
+    }
 }
+

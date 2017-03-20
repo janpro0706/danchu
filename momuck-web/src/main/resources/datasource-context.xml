@@ -10,9 +10,9 @@
     </bean>
     <bean id="dataSourceSpied" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://ip/schema"/>
-        <property name="username" value="id"/>
-        <property name="password" value="passwd"/>
+        <property name="url" value="jdbc:mysql://#{systemProperties['jdbc.user.ip']}:3306/momuck_dev"/>
+        <property name="username" value="#{systemProperties['jdbc.user.name']}"/>
+        <property name="password" value="#{systemProperties['jdbc.user.password']}"/>
     </bean>
 
     <bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">

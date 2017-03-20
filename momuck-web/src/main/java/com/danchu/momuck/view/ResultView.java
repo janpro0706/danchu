@@ -47,6 +47,10 @@ public class ResultView {
         this.data = data;
     }
 
+    public ResultView() {
+        super();
+    }
+
     @Override
     public String toString() {
         return "ResultView [code=" + code + ", message=" + message + "]";

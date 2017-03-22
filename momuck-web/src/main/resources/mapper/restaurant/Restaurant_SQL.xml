@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Restaurant">
+
+	<resultMap type="com.danchu.momuck.vo.Restaurant" id="Restaurant">
+		<result property="avgScore" column="avg_score" />
+		<result property="locationCoord" column="location_coord" />
+		<result property="locationText" column="location_text" />
+		<result property="phoneNumber" column="phone_number" />
+		<result property="imageMain" column="image_main" />
+		<result property="imageExtra" column="image_extra" />
+	</resultMap>
+
+	<select id="selectRestaurant" resultMap="Restaurant">
+		SELECT * 
+		FROM restaurant
+		WHERE seq = #{seq}
+		ORDER BY created DESC
+	</select>
+
+	<insert id="insertRestaurant">
+		INSERT INTO restaurant (name, avg_score, location_coord, location_text, phone_number, image_main, image_extra)
+		VALUES (#{name}, #{avgScore}, #{locationCoord}, #{locationText}, #{phoneNumber}, #{imageMain}, #{imageExtra})
+	</insert>
+
+	<update id="updateRestaurant">
+		UPDATE restaurant SET name = #{name}, avg_score = #{avgScore}, location_coord = #{locationCoord},
+		location_text = #{locationText}, phone_number = #{phoneNumber}, image_main = #{imageMain}, image_extra = #{imageExtra}
+		WHERE seq = #{seq}
+	</update>
+
+	<delete id="deleteRestaurant">
+		DELETE FROM restaurant WHERE name = #{name}
+	</delete>
+
+</mapper>

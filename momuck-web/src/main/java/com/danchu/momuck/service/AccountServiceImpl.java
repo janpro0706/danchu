@@ -1,6 +1,7 @@
 package com.danchu.momuck.service;
 
 import com.danchu.momuck.dao.AccountDao;
+import com.danchu.momuck.domain.LoginResult;
 import com.danchu.momuck.vo.Account;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,5 +26,22 @@ public class AccountServiceImpl implements AccountService {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(16);
         account.setPassword(bCryptPasswordEncoder.encode(account.getPassword()));
         return accountDao.insertAccount(account);
+    }
+
+    public LoginResult login(Account account) {
+
+        Account regAccount = accountDao.selectAccount(account.getEmail());
+
+        if (regAccount == null) {
+            return LoginResult.NOT_EXIST_EMAIL;
+        }
+
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(16);
+
+        if (!bCryptPasswordEncoder.matches(account.getPassword(), regAccount.getPassword())) {
+            return LoginResult.NOT_CORRECT_PASSWORD;
+        }
+
+        return LoginResult.SUCCESS;
     }
 }

@@ -1,5 +1,6 @@
 package com.danchu.momuck.service;
 
+import com.danchu.momuck.domain.LoginResult;
 import com.danchu.momuck.vo.Account;
 
 /**
@@ -11,4 +12,5 @@ public interface AccountService {
 
     Account createAccount(Account account);
 
+    LoginResult login(Account account);
 }

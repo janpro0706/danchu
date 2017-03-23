@@ -20,4 +20,10 @@
         DELETE FROM user WHERE email = #{email};
     </delete>
 
+    <select id="selectUserByEmail" resultMap="User">
+        SELECT *
+        FROM user
+        WHERE email = #{email}
+    </select>
+
 </mapper>

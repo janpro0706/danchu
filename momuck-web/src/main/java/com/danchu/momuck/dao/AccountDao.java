@@ -11,5 +11,7 @@ public interface AccountDao {
 
     Account insertAccount(Account account);
 
-    void deleteAccount(String email);
+    int deleteAccount(String email);
+
+    Account selectAccount(String email);
 }

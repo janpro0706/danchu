@@ -33,7 +33,11 @@ public class AccountMapper implements AccountDao {
         return account;
     }
 
-    public void deleteAccount(String email) {
-        sqlSessionTemplate.delete(NAMESPACE + ".deleteUser", email);
+    public int deleteAccount(String email) {
+        return sqlSessionTemplate.delete(NAMESPACE + ".deleteUser", email);
+    }
+
+    public Account selectAccount(String email) {
+        return sqlSessionTemplate.selectOne(NAMESPACE + ".selectUserByEmail", email);
     }
 }

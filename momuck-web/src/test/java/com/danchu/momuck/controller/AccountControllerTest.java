@@ -51,7 +51,7 @@ public class AccountControllerTest {
     }
 
     @Test
-    public void insertAccount() throws Exception {
+    public void insertAndLoginAccount() throws Exception {
         String jsonParm = "{" +
                 "\"email\" : \"" + EMAIL + "\"," +
                 "\"name\" : \"" + NAME + "\"," +
@@ -65,6 +65,45 @@ public class AccountControllerTest {
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$", hasKey("code")))
                 .andExpect(jsonPath("$.code").value("200"))
+                .andReturn();
+
+        jsonParm = "{" +
+                "\"email\" : \"" + EMAIL + "\"," +
+                "\"name\" : \"" + NAME + "\"," +
+                "\"password\" : \"" + PASSWORD + "\"" +
+                "}";
+
+        this.mockMvc.perform(post("/accounts/login").contentType(MediaType.APPLICATION_JSON).content(jsonParm))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andExpect(jsonPath("$", hasKey("code")))
+                .andExpect(jsonPath("$.code").value("900"))
+                .andReturn();
+
+        jsonParm = "{" +
+                "\"email\" : \"" + EMAIL + "1" + "\"," +
+                "\"name\" : \"" + NAME + "\"," +
+                "\"password\" : \"" + PASSWORD + "\"" +
+                "}";
+
+        this.mockMvc.perform(post("/accounts/login").contentType(MediaType.APPLICATION_JSON).content(jsonParm))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andExpect(jsonPath("$", hasKey("code")))
+                .andExpect(jsonPath("$.code").value("901"))
+                .andReturn();
+
+        jsonParm = "{" +
+                "\"email\" : \"" + EMAIL + "\"," +
+                "\"name\" : \"" + NAME + "\"," +
+                "\"password\" : \"" + PASSWORD + "1" + "\"" +
+                "}";
+
+        this.mockMvc.perform(post("/accounts/login").contentType(MediaType.APPLICATION_JSON).content(jsonParm))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andExpect(jsonPath("$", hasKey("code")))
+                .andExpect(jsonPath("$.code").value("902"))
                 .andReturn();
     }
 }

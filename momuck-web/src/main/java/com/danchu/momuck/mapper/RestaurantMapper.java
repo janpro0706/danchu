@@ -1,8 +1,5 @@
 package com.danchu.momuck.mapper;
 
-import java.util.HashMap;
-import java.util.List;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,17 +37,11 @@ public class RestaurantMapper implements RestaurantDao {
 		return sqlSessionTemplate.selectOne(NAMESPACE + ".selectRestaurant", seq);
 	}
 
-	public Restaurant updateRestaurant(Restaurant restaurant) {
-		try {
-			sqlSessionTemplate.insert(NAMESPACE + ".updateRestaurant", restaurant);
-		} catch (DuplicateKeyException e) {
-			return null;
-		}
-		return restaurant;
+	public int updateRestaurant(Restaurant restaurant) {
+			return sqlSessionTemplate.insert(NAMESPACE + ".updateRestaurant", restaurant);
 	}
 
-	public void deleteRestaurant(String name) {
-		sqlSessionTemplate.delete(NAMESPACE + ".deleteRestaurant", name);
+	public int deleteRestaurant(String name) {
+		return sqlSessionTemplate.delete(NAMESPACE + ".deleteRestaurant", name);
 	}
-
 }

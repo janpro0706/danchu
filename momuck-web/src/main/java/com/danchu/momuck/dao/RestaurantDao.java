@@ -11,6 +11,6 @@ import com.danchu.momuck.vo.Restaurant;
 public interface RestaurantDao {
 	Restaurant insertRestaurant(Restaurant restaurant);
 	Restaurant selectRestaurant(int seq);
-	Restaurant updateRestaurant(Restaurant restaurant);
-	void deleteRestaurant(String name);
+	int updateRestaurant(Restaurant restaurant);
+	int deleteRestaurant(String name);
 }

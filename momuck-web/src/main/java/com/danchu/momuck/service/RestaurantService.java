@@ -8,10 +8,10 @@ public interface RestaurantService {
 
 	Restaurant createRestaurant(Restaurant restaurant);
 
-	Restaurant updateRestaurant(Restaurant restaurant);
+	int updateRestaurant(Restaurant restaurant);
 
-	Restaurant selectRestaurant(int seqs);
+	Restaurant selectRestaurant(int seq);
 
-	void deleteRestaurant(String name);
+	int deleteRestaurant(String name);
 
 }

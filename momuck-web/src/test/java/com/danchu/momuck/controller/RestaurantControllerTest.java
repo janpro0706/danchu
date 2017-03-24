@@ -1,6 +1,7 @@
 package com.danchu.momuck.controller;
 
 import static org.hamcrest.Matchers.hasKey;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -31,7 +32,7 @@ public class RestaurantControllerTest {
 	private static final float AVG_SCORE = 0;
 	private static final String LOCATION_COORD = "0,0";
 	private static final String LOCATION_TEXT = "서울시 동작구";
-	private static final String PHONE_NUMBER = "01044444444";
+	private static final String PHONE_NUMBER = "010-4444-4444";
 	private static final String IMAGE_MAIN = "test.jpg";
 	private static final String IMAGE_EXTRA = "test_extra.jpg";
 
@@ -60,6 +61,16 @@ public class RestaurantControllerTest {
 				.andExpect(jsonPath("$", hasKey("code")))
 				.andExpect(jsonPath("$.code").value("200"))
 				.andReturn();
+	}
+	
+	@Test
+	public void selectRestaurant() throws Exception {
+		this.mockMvc.perform(get("/restaurants/{restaurant_id}", 7).contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk())
+			.andExpect(content().contentType("application/json;charset=UTF-8"))
+			.andExpect(jsonPath("$", hasKey("code")))
+			.andExpect(jsonPath("$.code").value("200"))
+			.andReturn();
 	}
 	
 	@After

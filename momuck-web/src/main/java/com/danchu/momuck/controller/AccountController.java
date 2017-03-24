@@ -1,5 +1,6 @@
 package com.danchu.momuck.controller;
 
+import com.danchu.momuck.domain.LoginResult;
 import com.danchu.momuck.service.AccountService;
 import com.danchu.momuck.view.ResultView;
 import com.danchu.momuck.vo.Account;
@@ -8,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,4 +49,19 @@ public class AccountController {
 
         return new ResultView("200", "Register success", account);
     }
+
+    @ResponseBody
+    @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = "application/json")
+    public ResultView login(@RequestBody Account account) {
+
+        LoginResult loginResult = accountService.login(account);
+
+        if (loginResult.getCode() == LoginResult.SUCCESS.getCode()) {
+            /**
+             * @TODO AccessToken 발급
+             */
+        }
+        return new ResultView(String.valueOf(loginResult.getCode()), loginResult.getMessage(), null);
+    }
+
 }

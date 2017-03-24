@@ -5,6 +5,7 @@ import com.danchu.momuck.domain.LoginResult;
 import com.danchu.momuck.util.AES256Util;
 import com.danchu.momuck.vo.Account;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
@@ -71,25 +72,42 @@ public class AccountServiceImpl implements AccountService {
 			URLCodec codec = new URLCodec();
 			String encString = codec.encode(aes256.aesEncode(normalString));
 
-			String htmlMsg = "<h3>이메일 계정을 인증받으시려면 아래 링크를 클릭해주세요</h3>" 
+			String htmlMsg ="<p>이메일 계정을 인증받으시려면 아래 링크를 클릭해주세요</p>" 
 					+ "<a href=\"https://dev.momuck.com/momuck/accounts/verify/"
 					+ encString 
 					+ "\">Verify Your Account!</a>";
 
 			MimeMessage mimeMessage = mailSender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
-			mimeMessage.setContent(htmlMsg, "text/html");
+			mimeMessage.setContent(htmlMsg, "text/html; charset=UTF-8");
 			helper.setTo(account.getEmail());
 			helper.setSubject("MOMUCK 이메일 주소 인증");
 			mailSender.send(mimeMessage);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
 
-	public void verifyAccount(String verifyKey) {
+	public int verifyAccount(String verifyKey) {
 		
-
+		try {
+			AES256Util aes256 = new AES256Util(AES256KEY);
+			URLCodec codec = new URLCodec();
+			String decString = aes256.aesDecode(codec.decode(verifyKey));
+			
+			String[] user = decString.split(":");
+			
+			Account account = accountDao.selectAccount(user[0]);
+			
+			if(user[1].equals(account.getName())){
+				return accountDao.updateAccountVerify(account.getEmail());
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
 	}
 }

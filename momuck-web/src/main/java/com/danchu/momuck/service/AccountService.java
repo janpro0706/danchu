@@ -16,5 +16,5 @@ public interface AccountService {
     
     void sendEmail(Account account);
     
-    void verifyAccount(String verifyKey);
+    int verifyAccount(String verifyKey);
 }

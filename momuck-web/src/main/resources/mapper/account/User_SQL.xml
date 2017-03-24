@@ -25,5 +25,11 @@
         FROM user
         WHERE email = #{email}
     </select>
+    
+    <update id="updateUserVerify">
+    	UPDATE user
+    	SET is_verify = 1
+    	WHERE email = #{email}
+    </update>
 
 </mapper>

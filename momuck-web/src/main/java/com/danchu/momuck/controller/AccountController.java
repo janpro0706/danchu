@@ -70,37 +70,21 @@ public class AccountController {
             /**
              * @TODO AccessToken 발급
              */
-        	
-        	
+        	if(account.isVerify() != 1)
+        		accountService.sendEmail(account);
         }
         return new ResultView(String.valueOf(loginResult.getCode()), loginResult.getMessage(), null);
     }
     
     @ResponseBody
-    @RequestMapping(value = "/test")
-    public String login_test() {
-    	Account account = new Account();
-    	accountService.sendEmail(account);
-    	
-        
-        return "index";
-    }
-    
-    @ResponseBody
     @RequestMapping(value = "/verify/{verify_key}", method = RequestMethod.GET)
-    public String login(@PathVariable("verify_key") String verifyKey) {
+    public ResultView verifyEmail(@PathVariable("verify_key") String verifyKey) {
     	
-    	try {
-			AES256Util aes256 = new AES256Util("aes-256-momuck-key");
-			URLCodec codec = new URLCodec();
-			return aes256.aesDecode(codec.decode(verifyKey));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			LOG.info(e.toString());
-			e.printStackTrace();
-		}
+    	int result = accountService.verifyAccount(verifyKey);
+    	if(result < 0){
+    		return new ResultView("500", "Server Internal Error", null);
+    	}
     	
-        return "fail";
-        
+    	return new ResultView("200", "OK", null);    	
     }
 }

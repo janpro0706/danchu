@@ -40,4 +40,8 @@ public class AccountMapper implements AccountDao {
     public Account selectAccount(String email) {
         return sqlSessionTemplate.selectOne(NAMESPACE + ".selectUserByEmail", email);
     }
+
+	public int updateAccountVerify(String email) {
+		return sqlSessionTemplate.update(NAMESPACE + ".updateUserVerify", email);
+	}
 }

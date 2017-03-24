@@ -13,4 +13,8 @@ public interface AccountService {
     Account createAccount(Account account);
 
     LoginResult login(Account account);
+    
+    void sendEmail(Account account);
+    
+    void verifyAccount(String verifyKey);
 }

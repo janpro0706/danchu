@@ -2,19 +2,29 @@ package com.danchu.momuck.controller;
 
 import com.danchu.momuck.domain.LoginResult;
 import com.danchu.momuck.service.AccountService;
+import com.danchu.momuck.util.AES256Util;
 import com.danchu.momuck.view.ResultView;
 import com.danchu.momuck.vo.Account;
 import com.fasterxml.jackson.core.JsonProcessingException;
+
+import org.apache.commons.codec.net.URLCodec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.Base64;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -60,8 +70,37 @@ public class AccountController {
             /**
              * @TODO AccessToken 발급
              */
+        	
+        	
         }
         return new ResultView(String.valueOf(loginResult.getCode()), loginResult.getMessage(), null);
     }
-
+    
+    @ResponseBody
+    @RequestMapping(value = "/test")
+    public String login_test() {
+    	Account account = new Account();
+    	accountService.sendEmail(account);
+    	
+        
+        return "index";
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/verify/{verify_key}", method = RequestMethod.GET)
+    public String login(@PathVariable("verify_key") String verifyKey) {
+    	
+    	try {
+			AES256Util aes256 = new AES256Util("aes-256-momuck-key");
+			URLCodec codec = new URLCodec();
+			return aes256.aesDecode(codec.decode(verifyKey));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			LOG.info(e.toString());
+			e.printStackTrace();
+		}
+    	
+        return "fail";
+        
+    }
 }

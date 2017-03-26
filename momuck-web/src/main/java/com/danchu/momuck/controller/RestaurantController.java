@@ -37,9 +37,10 @@ public class RestaurantController {
 			return new ResultView("500", "Register fail" + bindingResult.getFieldError().getDefaultMessage(), null);
 		}
 		
+		//duplicated name exception
 		Restaurant result = restaurantService.createRestaurant(restaurant);
 		if (result == null) {
-			return new ResultView("500", "Register failed", null);
+			return new ResultView("500", "Duplicated name", null);
 		}
 		return new ResultView("200", "Register success", restaurant);
 	}

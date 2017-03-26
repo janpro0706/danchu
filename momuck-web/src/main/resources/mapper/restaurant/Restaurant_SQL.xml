@@ -24,16 +24,19 @@
 		<result property="phoneNumber" column="phone_number" />
 		<result property="imageMain" column="image_main" />
 		<result property="imageExtra" column="image_extra" />
-		<collection property="food" resultMap="Food" javaType="java.util.ArrayList" />
+		<collection property="food" column="seq" select="selectFoodByRestaurantId" />
 	</resultMap>
 
+	<select id="selectFoodByRestaurantId" resultMap="Food">
+		SELECT f.*
+		FROM food f JOIN restaurant r
+		WHERE f.restaurant_seq = r.seq
+	</select>
+	
 	<select id="selectRestaurant" resultMap="Restaurant">
-		SELECT r.*, f.*
+		SELECT *
 		FROM restaurant r
-			JOIN food f
-				ON r.seq = f.restaurant_seq
-		WHERE r.seq = #{r.seq}
-		ORDER BY r.created DESC
+		WHERE r.seq = #{seq}
 	</select>
 
 	<insert id="insertRestaurant">

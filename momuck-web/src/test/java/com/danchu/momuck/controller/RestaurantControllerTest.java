@@ -9,8 +9,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
@@ -23,6 +25,7 @@ import org.springframework.web.context.WebApplicationContext;
 import com.danchu.momuck.dao.AccountDao;
 import com.danchu.momuck.dao.RestaurantDao;
 
+@FixMethodOrder(MethodSorters.DEFAULT)
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(locations = { "classpath:/root-context.xml", "classpath:servlet-context.xml" })

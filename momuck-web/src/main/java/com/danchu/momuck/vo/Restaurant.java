@@ -21,13 +21,13 @@ public class Restaurant {
 	
 	private String name;
 	
-	 /**
+	/**
      * @TODO 에러 메세지 한글로 변경 필요, 인코딩 세팅
      */
 	@Max(value=5, message="not allow type")
 	@Min(value=0, message="not allow type")
 	@JsonProperty("avg_score")
-	private String avgScore;
+	private float avgScore;
 	
 	@JsonProperty("location_coord")
 	private String locationCoord;
@@ -65,11 +65,11 @@ public class Restaurant {
 		this.name = name;
 	}
 
-	public String getAvgScore() {
+	public float getAvgScore() {
 		return avgScore;
 	}
 
-	public void setAvgScore(String avgScore) {
+	public void setAvgScore(float avgScore) {
 		this.avgScore = avgScore;
 	}
 

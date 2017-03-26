@@ -38,7 +38,7 @@ public class RestaurantMapper implements RestaurantDao {
 	}
 
 	public int updateRestaurant(Restaurant restaurant) {
-			return sqlSessionTemplate.insert(NAMESPACE + ".updateRestaurant", restaurant);
+		return sqlSessionTemplate.update(NAMESPACE + ".updateRestaurant", restaurant);
 	}
 
 	public int deleteRestaurant(String name) {

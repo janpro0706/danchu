@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Restaurant">
+
+	<resultMap type="com.danchu.momuck.vo.Food" id="Food">
+		<result property="seq" column="seq" />
+		<result property="name" column="name" />
+		<result property="category" column="category" />
+		<result property="price" column="price" />
+		<result property="created" column="created" />
+		<result property="avgScore" column="avg_score" />
+		<result property="imageMain" column="image_main" />
+		<result property="imageExtra" column="image_extra" />
+		<result property="restaurantSeq" column="restaurant_seq" />
+	</resultMap>
+
+	<resultMap type="com.danchu.momuck.vo.Restaurant" id="Restaurant">
+		<result property="seq" column="seq" />
+		<result property="name" column="name" />
+		<result property="created" column="created" />
+		<result property="avgScore" column="avg_score" />
+		<result property="locationCoord" column="location_coord" />
+		<result property="locationText" column="location_text" />
+		<result property="phoneNumber" column="phone_number" />
+		<result property="imageMain" column="image_main" />
+		<result property="imageExtra" column="image_extra" />
+		<collection property="food" column="seq" select="selectFoodByRestaurantId" />
+	</resultMap>
+
+	<select id="selectFoodByRestaurantId" resultMap="Food">
+		SELECT f.*
+		FROM food f JOIN restaurant r
+		WHERE f.restaurant_seq = r.seq
+	</select>
+	
+	<select id="selectRestaurant" resultMap="Restaurant">
+		SELECT *
+		FROM restaurant r
+		WHERE r.seq = #{seq}
+	</select>
+
+	<insert id="insertRestaurant">
+		INSERT INTO restaurant (name, avg_score, location_coord, location_text, phone_number, image_main, image_extra)
+		VALUES (#{name}, #{avgScore}, #{locationCoord}, #{locationText}, #{phoneNumber}, #{imageMain}, #{imageExtra})
+	</insert>
+
+	<update id="updateRestaurant">
+		UPDATE restaurant SET name = #{name}, avg_score = #{avgScore}, location_coord = #{locationCoord},
+		location_text = #{locationText}, phone_number = #{phoneNumber}, image_main = #{imageMain}, image_extra = #{imageExtra}
+		WHERE seq = #{seq}
+	</update>
+
+	<delete id="deleteRestaurant">
+		DELETE FROM restaurant WHERE name = #{name}
+	</delete>
+
+</mapper>

@@ -66,15 +66,15 @@ public class RestaurantControllerTest {
 				.andReturn();
 	}
 	
-	@Test
-	public void selectRestaurant() throws Exception {
-		this.mockMvc.perform(get("/restaurants/{restaurant_id}", 7).contentType(MediaType.APPLICATION_JSON))
-			.andExpect(status().isOk())
-			.andExpect(content().contentType("application/json;charset=UTF-8"))
-			.andExpect(jsonPath("$", hasKey("code")))
-			.andExpect(jsonPath("$.code").value("200"))
-			.andReturn();
-	}
+//	@Test
+//	public void selectRestaurant() throws Exception {
+//		this.mockMvc.perform(get("/restaurants/{restaurant_id}", 7).contentType(MediaType.APPLICATION_JSON))
+//			.andExpect(status().isOk())
+//			.andExpect(content().contentType("application/json;charset=UTF-8"))
+//			.andExpect(jsonPath("$", hasKey("code")))
+//			.andExpect(jsonPath("$.code").value("200"))
+//			.andReturn();
+//	}
 	
 	@After
 	public void clear() {

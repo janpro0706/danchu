@@ -25,7 +25,16 @@
     </beans:bean>
 
 	<!-- application configure properties settings -->
-	<util:properties id="config" location="classpath:config/config.properties" />
+    <beans:bean id="config"
+          class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <beans:property name="locations">
+            <beans:list>
+                <beans:value>classpath:/config_#{systemProperties['env']}/config.properties</beans:value>
+            </beans:list>
+        </beans:property>
+    </beans:bean>
+
+
 
     <mvc:interceptors>
         <mvc:interceptor>

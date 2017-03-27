@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Repository;
 
-
 /**
  * AccountMapper
  *
@@ -18,26 +17,30 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class AccountMapper implements AccountDao {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AccountMapper.class);
-    private static final String NAMESPACE = "User";
+	private static final Logger LOG = LoggerFactory.getLogger(AccountMapper.class);
+	private static final String NAMESPACE = "User";
 
-    @Autowired
-    private SqlSessionTemplate sqlSessionTemplate;
+	@Autowired
+	private SqlSessionTemplate sqlSessionTemplate;
 
-    public Account insertAccount(Account account) {
-        try {
-            sqlSessionTemplate.insert(NAMESPACE + ".insertUser", account);
-        } catch (DuplicateKeyException e) {
-            return null;
-        }
-        return account;
-    }
+	public Account insertAccount(Account account) {
+		try {
+			sqlSessionTemplate.insert(NAMESPACE + ".insertUser", account);
+		} catch (DuplicateKeyException e) {
+			return null;
+		}
+		return account;
+	}
 
-    public int deleteAccount(String email) {
-        return sqlSessionTemplate.delete(NAMESPACE + ".deleteUser", email);
-    }
+	public int deleteAccount(String email) {
+		return sqlSessionTemplate.delete(NAMESPACE + ".deleteUser", email);
+	}
 
-    public Account selectAccount(String email) {
-        return sqlSessionTemplate.selectOne(NAMESPACE + ".selectUserByEmail", email);
-    }
+	public Account selectAccount(String email) {
+		return sqlSessionTemplate.selectOne(NAMESPACE + ".selectUserByEmail", email);
+	}
+
+	public int updateAccountVerify(String email) {
+		return sqlSessionTemplate.update(NAMESPACE + ".updateUserVerify", email);
+	}
 }

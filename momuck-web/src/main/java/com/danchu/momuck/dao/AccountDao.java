@@ -14,4 +14,7 @@ public interface AccountDao {
     int deleteAccount(String email);
 
     Account selectAccount(String email);
+    
+    int updateAccountVerify(String email);
+    
 }

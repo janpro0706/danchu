@@ -30,9 +30,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(locations = {"classpath:/root-context.xml", "classpath:servlet-context.xml"})
 public class AccountControllerTest {
 
-    private static final String EMAIL = "test@gmail.com";
+    private static final String EMAIL = "lalala3423@hanmail.net";
     private static final String PASSWORD = "test";
-    private static final String NAME = "test";
+    private static final String NAME = "jjeongg";
     private static final String PROFIME_IMAGE = "test.jpg";
     private static final String ACCOUT_TYPE = "1";
 

@@ -25,7 +25,7 @@ import org.springframework.web.context.WebApplicationContext;
 import com.danchu.momuck.dao.AccountDao;
 import com.danchu.momuck.dao.RestaurantDao;
 
-@FixMethodOrder(MethodSorters.DEFAULT)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(locations = { "classpath:/root-context.xml", "classpath:servlet-context.xml" })

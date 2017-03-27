@@ -26,13 +26,16 @@ import com.danchu.momuck.vo.Account;
 public class AccountServiceImpl implements AccountService {
 
     private static final Logger LOG = LoggerFactory.getLogger(AccountServiceImpl.class);
-    
-	@Value("#{config['aes256Key']}")
-	private String key;
-	
+
+    @Value("#{systemProperties['email.secretkey']}")
+    private String key;
+
+    @Value("#{config['base_url']}")
+    private String baseUrl;
+
     @Autowired
     private JavaMailSender mailSender;
-    
+
     @Autowired
     private AccountDao accountDao;
 
@@ -59,52 +62,58 @@ public class AccountServiceImpl implements AccountService {
         return LoginResult.SUCCESS;
     }
 
-	public void sendEmail(Account account) {
-		
-		String normalString = account.getEmail() + ":" + account.getName();
+    public void sendEmail(Account account) {
 
-		try {
-			AES256Util aes256 = new AES256Util(key);
-			URLCodec codec = new URLCodec();
-			String encString = codec.encode(aes256.aesEncode(normalString));
+        String normalString = account.getEmail() + ":" + account.getName();
+        LOG.debug("sendmail", account.getEmail());
 
-			String htmlMsg ="<p>이메일 계정을 인증받으시려면 아래 링크를 클릭해주세요</p>" 
-					+ "<a href=\"https://dev.momuck.com/momuck/accounts/verify/"
-					+ encString 
-					+ "\">Verify Your Account!</a>";
+        try {
+            AES256Util aes256 = new AES256Util(key);
+            URLCodec codec = new URLCodec();
+            String encString = codec.encode(aes256.aesEncode(normalString));
 
-			MimeMessage mimeMessage = mailSender.createMimeMessage();
-			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
-			mimeMessage.setContent(htmlMsg, "text/html; charset=UTF-8");
-			helper.setTo(account.getEmail());
-			helper.setSubject("MOMUCK 이메일 주소 인증");
-			mailSender.send(mimeMessage);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
-	}
+            String htmlMsg = "<p>이메일 계정을 인증받으시려면 아래 링크를 클릭해주세요</p>"
+                    + "<a href=\""
+                    + baseUrl
+                    + "/momuck/accounts/verify/"
+                    + encString
+                    + "\">Verify Your Account!</a>";
 
-	public int verifyAccount(String verifyKey) {
-		
-		try {
-			AES256Util aes256 = new AES256Util(key);
-			URLCodec codec = new URLCodec();
-			String decString = aes256.aesDecode(codec.decode(verifyKey));
-			
-			String[] user = decString.split(":");
-			
-			Account account = accountDao.selectAccount(user[0]);
-			
-			if(user[1].equals(account.getName())){
-				return accountDao.updateAccountVerify(account.getEmail());
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
-		return -1;
-	}
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
+            mimeMessage.setContent(htmlMsg, "text/html; charset=UTF-8");
+            helper.setTo(account.getEmail());
+            helper.setSubject("MOMUCK 이메일 주소 인증");
+            mailSender.send(mimeMessage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOG.error(e.getStackTrace().toString());
+            throw new RuntimeException(e);
+        }
+    }
+
+    public int verifyAccount(String verifyKey) {
+
+        try {
+            AES256Util aes256 = new AES256Util(key);
+            URLCodec codec = new URLCodec();
+            String decString = aes256.aesDecode(codec.decode(verifyKey));
+
+            String[] user = decString.split(":");
+
+            Account account = accountDao.selectAccount(user[0]);
+
+            if (user[1].equals(account.getName())) {
+                return accountDao.updateAccountVerify(account.getEmail());
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOG.error(e.getStackTrace().toString());
+            throw new RuntimeException(e);
+        }
+
+        return -1;
+    }
 }

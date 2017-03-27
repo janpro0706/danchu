@@ -1,27 +1,21 @@
 package com.danchu.momuck.service;
 
-import com.danchu.momuck.dao.AccountDao;
-import com.danchu.momuck.domain.LoginResult;
-import com.danchu.momuck.util.AES256Util;
-import com.danchu.momuck.vo.Account;
-
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
-
-import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.codec.net.URLCodec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
-import org.springframework.security.core.token.Sha512DigestUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.danchu.momuck.dao.AccountDao;
+import com.danchu.momuck.domain.LoginResult;
+import com.danchu.momuck.util.AES256Util;
+import com.danchu.momuck.vo.Account;
 
 /**
  * AccountServiceImpl
@@ -32,8 +26,10 @@ import org.springframework.stereotype.Service;
 public class AccountServiceImpl implements AccountService {
 
     private static final Logger LOG = LoggerFactory.getLogger(AccountServiceImpl.class);
-    private static final String AES256KEY = "aes-256-momuck-key";
     
+	@Value("#{config['aes256Key']}")
+	private String key;
+	
     @Autowired
     private JavaMailSender mailSender;
     
@@ -64,11 +60,11 @@ public class AccountServiceImpl implements AccountService {
     }
 
 	public void sendEmail(Account account) {
-
+		
 		String normalString = account.getEmail() + ":" + account.getName();
 
 		try {
-			AES256Util aes256 = new AES256Util(AES256KEY);
+			AES256Util aes256 = new AES256Util(key);
 			URLCodec codec = new URLCodec();
 			String encString = codec.encode(aes256.aesEncode(normalString));
 
@@ -86,14 +82,14 @@ public class AccountServiceImpl implements AccountService {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
-
 	}
 
 	public int verifyAccount(String verifyKey) {
 		
 		try {
-			AES256Util aes256 = new AES256Util(AES256KEY);
+			AES256Util aes256 = new AES256Util(key);
 			URLCodec codec = new URLCodec();
 			String decString = aes256.aesDecode(codec.decode(verifyKey));
 			
@@ -107,6 +103,7 @@ public class AccountServiceImpl implements AccountService {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 		return -1;
 	}

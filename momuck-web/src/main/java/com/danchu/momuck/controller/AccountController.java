@@ -44,6 +44,7 @@ public class AccountController {
         }
         //duplicated key exception
         Account result = accountService.createAccount(account);
+        accountService.sendEmail(account);
         if (result == null) {
             return new ResultView("500", "Duplicated email or name", null);
         }
@@ -61,22 +62,19 @@ public class AccountController {
             /**
              * @TODO AccessToken 발급
              */
-        	if(account.isVerify() != 1){
-        		accountService.sendEmail(account);
-        	}
         }
         return new ResultView(String.valueOf(loginResult.getCode()), loginResult.getMessage(), null);
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "/verify/{verify_key}", method = RequestMethod.GET)
     public ResultView verifyEmail(@PathVariable("verify_key") String verifyKey) {
-    	
-    	int result = accountService.verifyAccount(verifyKey);
-    	if(result < 0){
-    		return new ResultView("500", "Server Internal Error", null);
-    	}
-    	
-    	return new ResultView("200", "OK", null);    	
+
+        int result = accountService.verifyAccount(verifyKey);
+        if (result < 0) {
+            return new ResultView("500", "Server Internal Error", null);
+        }
+
+        return new ResultView("200", "OK", null);
     }
 }

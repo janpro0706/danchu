@@ -17,4 +17,6 @@ public interface AccountDao {
     
     int updateAccountVerify(String email);
     
+    int updateAccountPassword(Account account);
+    
 }

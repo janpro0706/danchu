@@ -49,6 +49,7 @@ public class AccountController {
             return new ResultView("500", "Duplicated email or name", null);
         }
 
+        account.setPassword("");
         return new ResultView("200", "Register success", account);
     }
 

@@ -1,0 +1,110 @@
+page-login {
+  .content-ios hr {
+    height: 1px;
+  }
+  .container {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+  .divLogo {
+    height: 40vh;
+    wdith: 100%;
+    text-align: center;
+    padding-top: 18vh;
+  }
+  .divInput {
+    height: 16vh;
+    width: 100%;
+    padding-left: 9%;
+    .inputEmail::-webkit-input-placeholder {
+      color: map-get($colors, info-font);
+    }
+    .inputPassword::-webkit-input-placeholder {
+      color: map-get($colors, info-font);
+    }
+    .divPassword {
+      margin-top: 16px;
+    }
+    .line {
+      margin: 0px;
+      width: 92%;
+      border: 1px #dadada;
+    }
+  }
+  .divLoginBtn {
+    @extend .container;
+    height: 10vh;
+    width: 100%;
+    padding-top: 3%;
+    .loginBtn {
+      background-color: $greyish-brown;
+      color: #ffffff;
+    }
+  }
+  .divDivide {
+    @extend .container;
+    height: 6vh;
+    wdith: 100%;
+    padding-top: 1vh;
+    .leftLine {
+      width: 43%;
+      border: 1px #979797;
+      float: left;
+      margin-top: 9px;
+    }
+    .rightLine {
+      width: 43%;
+      border: 1px #979797;
+      float: right;
+      margin-top: 9px;
+    }
+    span {
+      padding-left: 4.5%;
+      padding-right: 4.5%;
+      height: 19px;
+      color: #39393a;
+      text-align: center;
+    }
+  }
+  .btn {
+    width: 100%;
+    height: 46px;
+    border-radius: 25px;
+    font-size: 16px;
+  }
+  .divSocial {
+    @extend .container;
+    height: 16vh;
+    width: 100%;
+    .kakaoBtn {
+      background-color: #ffde00;
+      color: #3c1e1e;
+      margin-bottom: 15px;
+    }
+    .facebookBtn {
+      background-color: #3b5998;
+      color: #ffffff;
+    }
+  }
+  .divOtherBtn {
+    height: 8vh;
+    width: 100%;
+    padding-top: 5%;
+    padding-left: 8%;
+    padding-right: 8%;
+    .font {
+      height: 17px;
+      font-size: 14px;
+      font-weight: 300;
+      color: $greyish-brown;
+    }
+    .createAccount {
+      text-align: left;
+      float: left;
+    }
+    .forgotPassword {
+      text-align: right;
+      float: right;
+    }
+  }
+}

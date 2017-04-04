@@ -2,26 +2,33 @@ package com.danchu.momuck.interceptor;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * Created by geine on 2017. 3. 13..
  */
-public class CrosInterceptor extends HandlerInterceptorAdapter {
+@Component
+public class CrosInterceptor implements Filter {
 
     private static final Logger LOG = LoggerFactory.getLogger(CrosInterceptor.class);
 
-    @Override
-    public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler) throws Exception {
-        res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE");
-        res.setHeader("Access-Control-Max-Age", "3600");
-        res.setHeader("Access-Control-Allow-Headers", "x-requested-with");
-        res.setHeader("Access-Control-Allow-Origin", "*");
+    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
+        HttpServletResponse response = (HttpServletResponse) res;
 
-        return super.preHandle(req, res, handler);
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Headers", "x-requested-with");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        chain.doFilter(req, res);
+    }
 
+    public void init(FilterConfig filterConfig) {
+    }
+
+    public void destroy() {
     }
 }

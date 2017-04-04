@@ -36,12 +36,12 @@
 
 
 
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <mapping path="/**/*" />
-            <beans:bean class="com.danchu.momuck.interceptor.CrosInterceptor"/>
-        </mvc:interceptor>
-    </mvc:interceptors>
+    <!--<mvc:interceptors>-->
+        <!--<mvc:interceptor>-->
+            <!--<mapping path="/**/*" />-->
+            <!--<beans:bean class="com.danchu.momuck.interceptor.CrosInterceptor"/>-->
+        <!--</mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
 
     <context:component-scan base-package="com.danchu.momuck" />
 

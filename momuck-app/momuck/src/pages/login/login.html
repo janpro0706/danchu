@@ -4,16 +4,16 @@
   </div>
   <div class="divInput">
     <div class="divEmail">
-      <ion-input class="inputEmail" type="email" placeholder="EMAIL"></ion-input>
+      <ion-input class="inputEmail" type="email" placeholder="EMAIL" [(ngModel)]="account.email" (ngModelChange)="account.email=$event"></ion-input>
       <hr class="line">
     </div>
     <div class="divPassword">
-      <ion-input class="inputPassword" type="password" placeholder="PASSWORD"></ion-input>
+      <ion-input class="inputPassword" type="password" placeholder="PASSWORD" [(ngModel)]="account.password" (ngModelChange)="account.password=$event"></ion-input>
       <hr class="line">
     </div>
   </div>
   <div class="divLoginBtn">
-    <button class="loginBtn btn">Login</button>
+    <button class="loginBtn btn" (click)=_doLogin()>Login</button>
   </div>
   <div class="divDivide">
     <hr class="leftLine">

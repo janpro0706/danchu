@@ -15,6 +15,12 @@
 		VALUES (#{name}, #{price}, #{category}, #{avgScore}, #{imageMain}, #{imageExtra}, #{restaurantSeq})
 	</insert>
 	
+	<select id="getFoodByNameAndRestaurantSeq" resultMap="Food">
+		SELECT *
+		FROM food
+		WHERE name = #{name} and restaurant_seq = #{restaurantSeq}
+	</select>
+	
 	<select id="getAllFoodList" resultMap="Food">
 		SELECT *
 		FROM food

@@ -33,7 +33,7 @@ import com.danchu.momuck.dao.RestaurantDao;
 @ContextConfiguration(locations = { "classpath:/root-context.xml", "classpath:servlet-context.xml" })
 public class RestaurantControllerTest {
 
-	private static final String NAME = "리틀 파스타";
+	private static final String NAME = "맥도날드";
 	private static final float AVG_SCORE = 0;
 	private static final String LOCATION_COORD = "0,0";
 	private static final String LOCATION_TEXT = "서울시 동작구";
@@ -76,5 +76,10 @@ public class RestaurantControllerTest {
 			.andExpect(jsonPath("$", hasKey("code")))
 			.andExpect(jsonPath("$.code").value("200"))
 			.andReturn();
+	}
+	
+	@After
+	public void deleteRestaurant() {
+		restaurantDao.deleteRestaurant(NAME);
 	}
 }

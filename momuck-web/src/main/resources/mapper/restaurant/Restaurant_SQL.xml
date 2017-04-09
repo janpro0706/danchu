@@ -51,7 +51,7 @@
 	</update>
 
 	<delete id="deleteRestaurant">
-		DELETE FROM restaurant WHERE seq = #{seq}
+		DELETE FROM restaurant WHERE name = #{name}
 	</delete>
 
 </mapper>

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Repository;
 
 import com.danchu.momuck.dao.FoodDao;
@@ -18,22 +19,40 @@ import com.danchu.momuck.vo.Food;
  */
 @Repository
 public class FoodMapper implements FoodDao {
-	
+
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 
 	private static final String NAMESPACE = "Food";
-	
+
+	public Food insertFood(Food food) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("name", food.getName());
+		map.put("restaurantSeq", food.getRestaurantSeq());
+
+		Food check = sqlSessionTemplate.selectOne(NAMESPACE + ".getFoodByNameAndRestaurantSeq", map);
+		if (check == null) {
+			sqlSessionTemplate.insert(NAMESPACE + ".insertFood", food);
+		} else return null;
+		
+		return food;
+	}
+
 	public List<Food> selectFoodList(int page) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("offset", 0+10*(page-1));
+		map.put("offset", 0 + 10 * (page - 1));
 		return sqlSessionTemplate.selectList(NAMESPACE + ".getAllFoodList", map);
 	}
-	
+
 	public List<Food> selectFoodListByCategory(String category, int page) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("offset", 0+10*(page-1));
+		map.put("offset", 0 + 10 * (page - 1));
 		map.put("category", category);
 		return sqlSessionTemplate.selectList(NAMESPACE + ".getCategoryFoodList", map);
+	}
+
+	public int deleteFood(int seq) {
+		sqlSessionTemplate.delete(NAMESPACE + ".deleteFood", seq);
+		return 0;
 	}
 }

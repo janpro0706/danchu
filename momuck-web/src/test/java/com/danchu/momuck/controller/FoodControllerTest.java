@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.danchu.momuck.dao.FoodDao;
+import com.danchu.momuck.service.FoodService;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -38,8 +39,11 @@ public class FoodControllerTest {
 	private static final float AVG_SCORE = (float) 3.0;
 	private static final String IMAGE_MAIN = "test_image.jpg";
 	private static final String IMAGE_EXTRA = "test_thumnail.jpg";
-	private static final int RESTAURANT_SEQ = 1;
+	private static final int RESTAURANT_SEQ = 2;
 
+	@Autowired
+	FoodService foodService;
+	
 	@Autowired
 	private WebApplicationContext wac;
 
@@ -72,4 +76,10 @@ public class FoodControllerTest {
 				.andExpect(jsonPath("$.code").value("200"))
 				.andReturn();
 	}
+	
+	@After
+	public void deleteFood() {
+		foodService.deleteFood(NAME, RESTAURANT_SEQ);
+	}
+	
 }

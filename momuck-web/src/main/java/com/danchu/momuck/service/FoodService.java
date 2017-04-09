@@ -14,5 +14,5 @@ public interface FoodService {
 	
 	public List<Food> getFoodList(String category, int page);
 	
-	int deleteFood(int seq);
+	int deleteFood(String name, int restaurantSeq);
 }

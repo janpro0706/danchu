@@ -37,6 +37,7 @@
 	</select>
 	
 	<delete id="deleteFood">
-		DELETE FROM food WHERE seq = #{seq}
+		DELETE FROM food 
+		WHERE name = #{name} and restaurant_seq = #{restaurantSeq}
 	</delete>
 </mapper>

@@ -51,8 +51,11 @@ public class FoodMapper implements FoodDao {
 		return sqlSessionTemplate.selectList(NAMESPACE + ".getCategoryFoodList", map);
 	}
 
-	public int deleteFood(int seq) {
-		sqlSessionTemplate.delete(NAMESPACE + ".deleteFood", seq);
+	public int deleteFood(String name, int restaurantSeq) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("name", name);
+		map.put("restaurantSeq", restaurantSeq);
+		sqlSessionTemplate.delete(NAMESPACE + ".deleteFood", map);
 		return 0;
 	}
 }

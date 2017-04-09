@@ -25,7 +25,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.danchu.momuck.dao.FoodDao;
-import com.danchu.momuck.service.FoodService;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -42,7 +41,7 @@ public class FoodControllerTest {
 	private static final int RESTAURANT_SEQ = 2;
 
 	@Autowired
-	FoodService foodService;
+	private FoodDao foodDao;
 	
 	@Autowired
 	private WebApplicationContext wac;
@@ -62,8 +61,11 @@ public class FoodControllerTest {
 				+ "\"restaurant_seq\" : " + RESTAURANT_SEQ + "}";
 
 		this.mockMvc.perform(post("/foods").contentType(MediaType.APPLICATION_JSON).content(jsonParam))
-				.andExpect(status().isOk()).andExpect(content().contentType("application/json;charset=UTF-8"))
-				.andExpect(jsonPath("$", hasKey("code"))).andExpect(jsonPath("$.code").value("200")).andReturn();
+				.andExpect(status().isOk())
+				.andExpect(content().contentType("application/json;charset=UTF-8"))
+				.andExpect(jsonPath("$", hasKey("code")))
+				.andExpect(jsonPath("$.code").value("200"))
+				.andReturn();
 	}
 
 	@Test
@@ -79,7 +81,7 @@ public class FoodControllerTest {
 	
 	@After
 	public void deleteFood() {
-		foodService.deleteFood(NAME, RESTAURANT_SEQ);
+		foodDao.deleteFood(NAME, RESTAURANT_SEQ);
 	}
 	
 }

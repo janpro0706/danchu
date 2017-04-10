@@ -9,9 +9,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard } from '@ionic-native/keyboard';
 
 import { declarations, entryComponents } from '../pages/moduleVariables';
+import { TestEntry } from './test-entry/test-entry';
 
 @NgModule({
-  declarations: [ MyApp ].concat(declarations),
+  declarations: [ MyApp, TestEntry ].concat(declarations),
   imports: [
     IonicModule.forRoot(MyApp,{
       scrollAssist: false,
@@ -21,7 +22,7 @@ import { declarations, entryComponents } from '../pages/moduleVariables';
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
-  entryComponents: [ MyApp ].concat(entryComponents),
+  entryComponents: [ MyApp, TestEntry ].concat(entryComponents),
   providers: [
     StatusBar,
     SplashScreen,

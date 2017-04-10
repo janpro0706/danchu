@@ -1,0 +1,31 @@
+<ion-content padding>
+  <div class="divLogo">
+    <img src="assets/image/title.svg">
+  </div>
+  <div class="divInput">
+    <div class="divEmail">
+      <ion-input class="inputEmail" type="email" placeholder="EMAIL" [(ngModel)]="account.email" (ngModelChange)="account.email=$event"></ion-input>
+      <hr class="line">
+    </div>
+    <div class="divPassword">
+      <ion-input class="inputPassword" type="password" placeholder="PASSWORD" [(ngModel)]="account.password" (ngModelChange)="account.password=$event"></ion-input>
+      <hr class="line">
+    </div>
+  </div>
+  <div class="divLoginBtn">
+    <button class="loginBtn btn" (click)=_doLogin()>Login</button>
+  </div>
+  <div class="divDivide">
+    <hr class="leftLine">
+    <span>or</span>
+    <hr class="rightLine">
+  </div>
+  <div class="divSocial">
+    <button class="kakaoBtn btn">with Kakao</button>
+    <button class="facebookBtn btn">with FaceBook</button>
+  </div>
+  <div class="divOtherBtn">
+    <span class="createAccount font">Create Account</span>
+    <span class="forgotPassword font">Frogot Password</span>
+  </div>
+</ion-content>

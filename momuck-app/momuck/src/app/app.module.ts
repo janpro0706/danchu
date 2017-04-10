@@ -3,17 +3,15 @@ import { HttpModule } from '@angular/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
-import { LoginPage } from '../pages/login/login';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Keyboard } from '@ionic-native/keyboard';
 
+import { declarations, entryComponents } from '../pages/moduleVariables';
+
 @NgModule({
-  declarations: [
-    MyApp,
-    LoginPage
-  ],
+  declarations: [ MyApp ].concat(declarations),
   imports: [
     IonicModule.forRoot(MyApp,{
       scrollAssist: false,
@@ -23,10 +21,7 @@ import { Keyboard } from '@ionic-native/keyboard';
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    LoginPage
-  ],
+  entryComponents: [ MyApp ].concat(entryComponents),
   providers: [
     StatusBar,
     SplashScreen,

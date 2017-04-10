@@ -79,16 +79,16 @@ public class AccountController {
     }
     
     @ResponseBody
-    @RequestMapping(value = "/reset_password", method = RequestMethod.POST)
-    public ResultView resetPassword() {
+    @RequestMapping(value = "/reset_password", method = RequestMethod.POST, consumes = "application/json")
+    public ResultView resetPassword(@RequestBody Account account) {
     	
-    	String email = "lalala3423@hanmail.net";
-    	Account account = new Account();
-    	account.setEmail(email);
+    	int result = accountService.resetPassword(account.getEmail());
     	
-    	int result = accountService.updatePassword(account);
     	if(result < 0){
-    		return new ResultView("500", "Server Internal Error", null);
+    		return new ResultView("501", "not exist email", null);
+    	} 
+    	else if(result == 0){
+    		return new ResultView("502", "could not update", null);
     	}
     	
     	return new ResultView("200", "OK", null);

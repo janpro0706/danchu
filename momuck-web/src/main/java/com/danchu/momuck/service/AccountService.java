@@ -18,5 +18,5 @@ public interface AccountService {
     
     int verifyAccount(String verifyKey);
     
-    int updatePassword(Account account);
+    int resetPassword(String email);
 }

@@ -97,8 +97,8 @@ public class AccountServiceImpl implements AccountService {
 					+ "\">Verify Your Account!</a>";
 
 			sendEmail(account.getEmail(), htmlMsg, "MOMUCK 인증 메일");
-
-		} catch (Exception e) {
+			
+		} catch (Exception e){
 			e.printStackTrace();
 			LOG.error(e.getStackTrace().toString());
 			throw new RuntimeException(e);
@@ -129,7 +129,13 @@ public class AccountServiceImpl implements AccountService {
 		return -1;
 	}
 
-	public int updatePassword(Account account) {
+	public int resetPassword(String email) {
+
+		Account account = accountDao.selectAccount(email);
+
+		if (account == null) {
+			return -1;
+		}
 
 		int idx = 0;
 		char[] charSet = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F',

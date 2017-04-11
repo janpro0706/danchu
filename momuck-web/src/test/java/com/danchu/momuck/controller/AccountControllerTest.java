@@ -2,8 +2,10 @@ package com.danchu.momuck.controller;
 
 import com.danchu.momuck.dao.AccountDao;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
@@ -28,6 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(locations = {"classpath:/root-context.xml", "classpath:servlet-context.xml"})
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AccountControllerTest {
 
     private static final String EMAIL = "lalala3423@hanmail.net";
@@ -47,11 +50,13 @@ public class AccountControllerTest {
     @Before
     public void setup() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-        accountDao.deleteAccount(EMAIL);
     }
 
     @Test
     public void insertAndLoginAccount() throws Exception {
+    	
+    	accountDao.deleteAccount(EMAIL);
+    	
         String jsonParm = "{" +
                 "\"email\" : \"" + EMAIL + "\"," +
                 "\"name\" : \"" + NAME + "\"," +
@@ -105,5 +110,26 @@ public class AccountControllerTest {
                 .andExpect(jsonPath("$", hasKey("code")))
                 .andExpect(jsonPath("$.code").value("902"))
                 .andReturn();
+    }
+    
+    @Test
+    public void resetPassword() throws Exception{
+    	String jsonParm = "{\"email\" : \"" + EMAIL + "\"}";
+    	
+    	this.mockMvc.perform(post("/accounts/reset_password").contentType(MediaType.APPLICATION_JSON).content(jsonParm))
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(jsonPath("$", hasKey("code")))
+        .andExpect(jsonPath("$.code").value("200"))
+        .andReturn();
+    	
+    	jsonParm = "{\"email\" : \"wrong_" + EMAIL + "\"}";
+    	
+    	this.mockMvc.perform(post("/accounts/reset_password").contentType(MediaType.APPLICATION_JSON).content(jsonParm))
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(jsonPath("$", hasKey("code")))
+        .andExpect(jsonPath("$.code").value("501"))
+        .andReturn();
     }
 }

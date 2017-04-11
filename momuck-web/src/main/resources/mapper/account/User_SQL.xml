@@ -31,5 +31,11 @@
     	SET is_verify = 1
     	WHERE email = #{email}
     </update>
+    
+    <update id="updateUserPassword">
+    	UPDATE user
+    	SET password = #{password}
+    	WHERE email = #{email}
+    </update>
 
 </mapper>

@@ -14,7 +14,9 @@ public interface AccountService {
 
     LoginResult login(Account account);
     
-    void sendEmail(Account account);
+    void sendVerifyEmail(Account account);
     
     int verifyAccount(String verifyKey);
+    
+    int resetPassword(String email);
 }

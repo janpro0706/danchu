@@ -44,7 +44,7 @@ public class AccountController {
         }
         //duplicated key exception
         Account result = accountService.createAccount(account);
-        accountService.sendEmail(account);
+        accountService.sendVerifyEmail(account);
         if (result == null) {
             return new ResultView("500", "Duplicated email or name", null);
         }
@@ -77,5 +77,22 @@ public class AccountController {
         }
 
         return new ResultView("200", "OK", null);
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/reset_password", method = RequestMethod.POST, consumes = "application/json")
+    public ResultView resetPassword(@RequestBody Account account) {
+    	
+    	int result = accountService.resetPassword(account.getEmail());
+    	
+    	if(result < 0){
+    		return new ResultView("501", "not exist email", null);
+    	} 
+    	else if(result == 0){
+    		return new ResultView("502", "could not update", null);
+    	}
+    	
+    	return new ResultView("200", "OK", null);
+        
     }
 }

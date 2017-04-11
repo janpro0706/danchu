@@ -12,5 +12,5 @@ public interface RestaurantDao {
 	Restaurant insertRestaurant(Restaurant restaurant);
 	Restaurant selectRestaurant(int seq);
 	int updateRestaurant(Restaurant restaurant);
-	int deleteRestaurant(int seq);
+	int deleteRestaurant(String name);
 }

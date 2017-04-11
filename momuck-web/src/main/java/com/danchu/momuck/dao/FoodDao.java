@@ -14,5 +14,5 @@ public interface FoodDao {
 	public Food insertFood(Food food);
 	public List<Food> selectFoodList(int page);
 	public List<Food> selectFoodListByCategory(String category, int page);
-	public int deleteFood(int seq);
+	public int deleteFood(String name, int restaurantSeq);
 }

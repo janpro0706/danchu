@@ -38,8 +38,11 @@ public class FoodControllerTest {
 	private static final float AVG_SCORE = (float) 3.0;
 	private static final String IMAGE_MAIN = "test_image.jpg";
 	private static final String IMAGE_EXTRA = "test_thumnail.jpg";
-	private static final int RESTAURANT_SEQ = 1;
+	private static final int RESTAURANT_SEQ = 2;
 
+	@Autowired
+	private FoodDao foodDao;
+	
 	@Autowired
 	private WebApplicationContext wac;
 
@@ -58,8 +61,11 @@ public class FoodControllerTest {
 				+ "\"restaurant_seq\" : " + RESTAURANT_SEQ + "}";
 
 		this.mockMvc.perform(post("/foods").contentType(MediaType.APPLICATION_JSON).content(jsonParam))
-				.andExpect(status().isOk()).andExpect(content().contentType("application/json;charset=UTF-8"))
-				.andExpect(jsonPath("$", hasKey("code"))).andExpect(jsonPath("$.code").value("200")).andReturn();
+				.andExpect(status().isOk())
+				.andExpect(content().contentType("application/json;charset=UTF-8"))
+				.andExpect(jsonPath("$", hasKey("code")))
+				.andExpect(jsonPath("$.code").value("200"))
+				.andReturn();
 	}
 
 	@Test
@@ -72,4 +78,10 @@ public class FoodControllerTest {
 				.andExpect(jsonPath("$.code").value("200"))
 				.andReturn();
 	}
+	
+	@After
+	public void deleteFood() {
+		foodDao.deleteFood(NAME, RESTAURANT_SEQ);
+	}
+	
 }

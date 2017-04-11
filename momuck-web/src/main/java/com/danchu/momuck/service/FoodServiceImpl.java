@@ -35,7 +35,7 @@ public class FoodServiceImpl implements FoodService {
 			return foodDao.selectFoodListByCategory(category, page);
 	}
 
-	public int deleteFood(int seq) {
-		return foodDao.deleteFood(seq);
+	public int deleteFood(String name, int restaurantSeq) {
+		return foodDao.deleteFood(name, restaurantSeq);
 	}
 }

@@ -1,0 +1,5 @@
+<ion-content>
+  <ul *ngFor="let nav of pageNavs">
+    <li><button ion-button (click)="nav.goPage($event)">{{ nav.name }}</button></li>
+  </ul>
+</ion-content>

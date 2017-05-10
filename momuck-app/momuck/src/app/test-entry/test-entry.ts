@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { LoginPage } from '../../pages';
+import { LoginPage, FoodPage } from '../../pages';
 
 @Component({
   selector: 'test-entry',
   templateUrl: './test-entry.html'
 })
 export class TestEntry {
-  pages = [ LoginPage ]
+  pages = [ LoginPage, FoodPage ]
   pageNavs = []
-  // food: any = FoodPage;
 
   constructor(public navCtrl: NavController) {
     this.pageNavs = this.pages.map((page) => {
@@ -18,7 +17,11 @@ export class TestEntry {
         component: page,
         goPage: (() => {
           return (e) => {
-            navCtrl.push(page);
+            const navParam = page == FoodPage ? {
+              restaurantIdx: '0'
+            } : null;
+
+            navCtrl.push(page, navParam);
           };
         })()
       };

@@ -1,0 +1,15 @@
+<ion-content>
+  <div class="review-content" style="padding-left: 1.1rem; padding-top: 1.3rem">
+    <div class="review-tab-title" style="font-size: 1.2rem; font-weight: 500; color: #4a4a4a">리뷰 {{ reviews.length }}</div>
+    <ul class="review-list" style="list-style-type: none">
+      <li *ngFor="let review of reviews" style="padding-bottom: 2rem; margin-left: -30px">
+        <div class="review-info">
+          <ion-icon name="star" *ngFor="let i of range(review.star)" style="color: #ffcd00"></ion-icon><ion-icon name="star" *ngFor="let i of range(5 - review.star)" style="color: #c7c7cd"></ion-icon>
+          <span style="font-size: 1.2rem; color: #4a4a4a; font-weight: 500">{{ review.author }}</span>
+          <span style="font-size: 1.2rem; color: #4a4a4a; font-weight: 100">{{ review.date.toDateString() }}</span>
+        </div>
+        <div class="review-message" style="font-size: 1.2rem; color: #4a4a4a; font-weight: 300">{{ review.message }}</div>
+      </li>
+    </ul>
+  </div>
+</ion-content>

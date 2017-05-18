@@ -39,4 +39,20 @@ export class ReviewTab {
     for (let i = 0; i < range; i++) arr.push(i);
     return arr;
   }
+
+  yyyymmdd(date: Date) {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const _date = date.getDate();
+
+    const yyyy = '' + year;
+    const mm = month < 10 ? '0' + month : month;
+    const dd = _date < 10 ? '0' + _date : _date;
+
+    return `${yyyy}.${mm}.${dd}`;
+  }
+
+  addBr(message: String) {
+    return message.replace('\n', '<br />');
+  }
 }

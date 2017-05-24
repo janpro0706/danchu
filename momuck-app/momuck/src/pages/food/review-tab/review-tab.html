@@ -1,15 +1,15 @@
 <ion-content>
-  <div class="review-content" style="padding-left: 1.1rem; padding-top: 1.3rem">
-    <div class="review-tab-title" style="font-size: 1.2rem; font-weight: 500; color: #4a4a4a">리뷰 {{ reviews.length }}</div>
-    <ul class="review-list" style="list-style-type: none">
-      <li *ngFor="let review of reviews" style="padding-bottom: 2rem; margin-left: -30px">
+  <div class="review-content">
+    <div class="review-tab-title">리뷰 {{ reviews.length }}</div>
+    <ul class="review-list">
+      <li *ngFor="let review of reviews">
         <div class="review-info">
-          <ion-icon name="star" *ngFor="let i of range(review.star)" style="color: #ffcd00"></ion-icon><ion-icon name="star" *ngFor="let i of range(5 - review.star)" style="color: #c7c7cd"></ion-icon>
-          <span style="font-size: 1.2rem; color: #4a4a4a; font-weight: 500">{{ review.author }}</span>
-          <span style="font-size: 1.2rem; color: #4a4a4a; font-weight: 100">{{ yyyymmdd(review.date) }}</span>
+          <ion-icon class="full-star" name="star" *ngFor="let i of range(review.star)"></ion-icon><ion-icon class="empty-star" name="star" *ngFor="let i of range(5 - review.star)"></ion-icon>
+          <span class="review-author">{{ review.author }}</span>
+          <span class="review-date">{{ yyyymmdd(review.date) }}</span>
         </div>
-        <div class="review-message" style="font-size: 1.2rem; color: #4a4a4a; font-weight: 300">
-          <p *ngFor="let m of review.message.split('\n')" style="margin: 0; padding: 0">{{ m }}</p>
+        <div class="review-message">
+          <p *ngFor="let m of review.message.split('\n')">{{ m }}</p>
         </div>
       </li>
     </ul>

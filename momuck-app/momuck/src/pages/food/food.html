@@ -1,22 +1,22 @@
 <!-- TODO: switch icon to more pretty one -->
 
 <ion-content>
-  <div class="main-img" style="height: 66vw; background-image: url('./assets/image/food/main_img.png'); background-reapet: no-reapet; background-size: cover"></div>
+  <div class="main-img" style="background-image: url('./assets/image/food/main_img.png')"></div>
   <div class="img-padding"></div>
-  <div class="title" style="background-color: #f5f5f5; height: 8rem; padding-top: 1.5rem; padding-left: 1.5rem; padding-right: 3rem; border-bottom: 0.5px solid #c7c7cd">
-    <div class="main-title" style="padding-bottom: 0.5rem; line-height: 2.5rem">
-      <span class="restaurant-name" style="font-size: 2.5rem; font-weight: bold; color: #4a4a4a">오향족발</span>
-      <span class="menu-info" style="float: right; font-size: 1.5rem; color: #4a4a4a">
+  <div class="title">
+    <div class="main-title">
+      <span class="restaurant-name">오향족발</span>
+      <span class="menu-info">
         <span class="star"><ion-icon name="star"></ion-icon> 3.0</span>
         <span class="price"><ion-icon name="logo-usd"></ion-icon> 7,000</span>
       </span>
     </div>
     <div class="sub-title">
-      <span class="hastags" style="font-size: 1.2rem; color: #4a4a4a">#족발 #보쌈 #든든한한끼 #한식</span>
-      <span class="call" style="float: right; font-size: 1.2rem; color: #4a4a4a"><ion-icon name="call"></ion-icon> 전화걸기</span>
+      <span class="hastags">#족발 #보쌈 #든든한한끼 #한식</span>
+      <span class="call"><ion-icon name="call"></ion-icon> 전화걸기</span>
     </div>
   </div>
-  <div class="tabs-conainer" style="height: calc(100vh - 8rem - 4.3rem); position: relative">
+  <div class="tabs-conainer">
     <ion-tabs tabsPlacement="top">
       <ion-tab [root]="tabs[0]" [rootParams]="this.params.data" tabTitle="리뷰보기"></ion-tab>
       <ion-tab [root]="tabs[0]" [rootParams]="this.params.data" tabTitle="다른메뉴"></ion-tab>
@@ -25,5 +25,5 @@
     </ion-tabs>
   </div>
   <div class="btn-padding" style="height: 4.3rem"></div>
-  <button ion-button class="choose-btn" style="background-color: #4a4a4a; color: #ffffff; width: 100%; height: 4.3rem; margin: 0; position: fixed; bottom: 0; font-size: 1.6rem; font-weight: 300; border-radius: 0"><ion-icon name="checkmark" style="font-size: 2em"></ion-icon>  오늘은 이걸로</button>
+  <button ion-button class="choose-btn"><ion-icon class="checkmark" name="checkmark"></ion-icon>  오늘은 이걸로</button>
 </ion-content>

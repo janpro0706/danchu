@@ -10,7 +10,6 @@ import { ReviewTab } from './review-tab/review-tab';
 export class FoodPage {
   tabs = [ ReviewTab ];
 
-  constructor(private navCrl: NavController, private params: NavParams) {
-    console.log(this.params.get('restaurantIdx'));
+  constructor(private navCtrl: NavController, private params: NavParams) {
   }
 }

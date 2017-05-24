@@ -30,8 +30,6 @@ export class ReviewTab {
 
   constructor(private params: NavParams) {
     this.reviews = [ ...this.reviews, ...this.reviews, ...this.reviews, ...this.reviews ];
-
-    console.log(this.params.get('restaurantIdx'));
   }
 
   range(range: Number) {
@@ -50,9 +48,5 @@ export class ReviewTab {
     const dd = _date < 10 ? '0' + _date : _date;
 
     return `${yyyy}.${mm}.${dd}`;
-  }
-
-  addBr(message: String) {
-    return message.replace('\n', '<br />');
   }
 }

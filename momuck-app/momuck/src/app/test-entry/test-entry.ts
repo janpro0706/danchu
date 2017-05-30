@@ -18,7 +18,8 @@ export class TestEntry {
         goPage: (() => {
           return (e) => {
             const navParam = page == FoodPage ? {
-              restaurantIdx: '0'
+              restaurantIdx: 1,
+              foodIdx: 7
             } : null;
 
             navCtrl.push(page, navParam);

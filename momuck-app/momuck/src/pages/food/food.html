@@ -1,13 +1,13 @@
 <!-- TODO: switch icon to more pretty one -->
 
 <ion-content>
-  <div class="main-img" style="background-image: url('./assets/image/food/main_img.png')"></div>
+  <div class="main-img" [ngStyle]="{'background-image': 'url(' + mainImg + ')'}"></div>
   <div class="img-padding"></div>
   <div class="title">
     <div class="main-title">
-      <span class="restaurant-name">오향족발</span>
+      <span class="restaurant-name">{{ restaurantInfo.name }}</span>
       <span class="menu-info">
-        <span class="star"><ion-icon name="star"></ion-icon> 3.0</span>
+        <span class="star"><ion-icon name="star"></ion-icon> {{ restaurantInfo.avg_score }}</span>
         <span class="price"><ion-icon name="logo-usd"></ion-icon> 7,000</span>
       </span>
     </div>

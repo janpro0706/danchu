@@ -1,35 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+
+import { ReviewService } from './review.service';
 
 @Component({
   selector: 'review-tab',
-  templateUrl: './review-tab.html'
+  templateUrl: './review-tab.html',
+  providers: [ ReviewService ]
 })
-export class ReviewTab {
-  reviews = [
-    {
-      author: '윤지수',
-      message: `동해물과 백두산이 마르고 닳도록`,
-      star: 3,
-      date: new Date('2017-01-02')
-    },
-    {
-      author: '이희백',
-      message: `개노맛 핵노맛 존나노맛 돈아까운맛!!!!`,
-      star: 4,
-      date: new Date('2017-01-02')
-    },
-    {
-      author: '최윤정',
-      message: `수업언제끝나으으아으아으으아아아
-      진짜 너무하네`,
-      star: 4,
-      date: new Date('2017-01-02')
-    },
-  ];
+export class ReviewTab implements OnInit {
+  reviews = [];
 
-  constructor(private params: NavParams) {
-    this.reviews = [ ...this.reviews, ...this.reviews, ...this.reviews, ...this.reviews ];
+  constructor(private params: NavParams, private reviewService: ReviewService) {
+  }
+
+  ngOnInit() {
+    const resIdx = this.params.get('restaurantIdx');
+    const foodIdx = this.params.get('foodIdx')
+
+    this.reviewService.getFoodReview(foodIdx, 0, 10)
+      .then(reviews => {
+        this.reviews = reviews.map(review => {
+          // TODO: get author name using GET /profile
+          const { user_seq: author, message, created: date, score: star } = review;
+
+          return { author: '윤지수', message, date: date.replace(/-/g, '.'), star };
+        });
+      });
   }
 
   range(range: Number) {

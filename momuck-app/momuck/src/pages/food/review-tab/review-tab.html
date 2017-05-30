@@ -6,7 +6,7 @@
         <div class="review-info">
           <ion-icon class="full-star" name="star" *ngFor="let i of range(review.star)"></ion-icon><ion-icon class="empty-star" name="star" *ngFor="let i of range(5 - review.star)"></ion-icon>
           <span class="review-author">{{ review.author }}</span>
-          <span class="review-date">{{ yyyymmdd(review.date) }}</span>
+          <span class="review-date">{{ review.date }}</span>
         </div>
         <div class="review-message">
           <p *ngFor="let m of review.message.split('\n')">{{ m }}</p>

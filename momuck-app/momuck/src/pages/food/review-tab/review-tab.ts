@@ -1,37 +1,68 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
 
 import { ReviewService } from './review.service';
+
+import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'review-tab',
   templateUrl: './review-tab.html',
   providers: [ ReviewService ]
 })
-export class ReviewTab implements OnInit {
+export class ReviewTab {
   reviews = [];
 
-  constructor(private params: NavParams, private reviewService: ReviewService) {
+  constructor(private params: NavParams,
+              private viewCtrl: ViewController,
+              private navCtrl: NavController,
+              private reviewService: ReviewService) {
   }
 
-  ngOnInit() {
-    const resIdx = this.params.get('restaurantIdx');
-    const foodIdx = this.params.get('foodIdx')
+  ionViewDidLoad() {
+    // tricks for parent component being able to get the instance of a tab's root component
+    this.params.get('getTabPageInst')(this);
+    this.getOlderReviews(10);
+  }
 
-    this.reviewService.getFoodReview(foodIdx, 0, 10)
+  getRecentReviews(requestNum) {
+    const foodIdx = this.params.get('foodIdx');
+
+    this.reviewService.getFoodReview(foodIdx, 0, requestNum)
       .then(reviews => {
         if (!reviews) {
-          this.reviews = [];
           return;
         }
-        
-        this.reviews = reviews.map(review => {
-          // TODO: get author name using GET /profile
-          const { user_seq: author, message, created: date, score: star } = review;
 
-          return { author: '윤지수', message, date: date.replace(/-/g, '.'), star };
-        });
+        const currentSeq = this.reviews[0].seq;
+
+        const recentReviews = reviews.filter(r => r.seq > currentSeq)
+          .map(this.reviewMapper);
+
+        this.reviews = [ ...recentReviews, ...this.reviews ];
       });
+  }
+
+  getOlderReviews(requestNum) {
+    const foodIdx = this.params.get('foodIdx');
+
+    this.reviewService.getFoodReview(foodIdx, this.reviews.length, requestNum)
+      .then(reviews => {
+        if (!reviews) {
+          return;
+        }
+
+        const olderReviews = reviews.map(this.reviewMapper);
+
+        this.reviews = [ ...this.reviews, ...olderReviews ];
+      });
+  }
+
+  reviewMapper(rawReview) {
+    // TODO: get author name using GET /profile
+    const { seq, user_seq: author, message, created: date, score: star } = rawReview;
+
+    return { seq, author: '윤지수', message, date: date.replace(/-/g, '.'), star };
   }
 
   range(range: Number) {

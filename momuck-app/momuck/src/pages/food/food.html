@@ -18,10 +18,10 @@
   </div>
   <div class="tabs-container">
     <ion-tabs tabsPlacement="top">
-      <ion-tab [root]="tabs[0]" [rootParams]="this.params.data" tabTitle="리뷰보기"></ion-tab>
-      <ion-tab [root]="tabs[0]" [rootParams]="this.params.data" tabTitle="다른메뉴"></ion-tab>
-      <ion-tab [root]="tabs[0]" [rootParams]="this.params.data" tabTitle="이전리뷰"></ion-tab>
-      <ion-tab [root]="tabs[0]" [rootParams]="this.params.data" tabTitle="음식점정보"></ion-tab>
+      <ion-tab [root]="tabs.review.root" [rootParams]="tabs.review.params" tabTitle="리뷰보기"></ion-tab>
+      <ion-tab [root]="tabs.review.root" [rootParams]="tabs.review.params" tabTitle="다른메뉴"></ion-tab>
+      <ion-tab [root]="tabs.review.root" [rootParams]="tabs.review.params" tabTitle="이전리뷰"></ion-tab>
+      <ion-tab [root]="tabs.review.root" [rootParams]="tabs.review.params" tabTitle="음식점정보"></ion-tab>
     </ion-tabs>
   </div>
   <div class="btn-padding" style="height: 4.3rem"></div>

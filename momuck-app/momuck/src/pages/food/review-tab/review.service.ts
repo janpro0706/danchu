@@ -23,7 +23,7 @@ export class ReviewService {
       .catch(e => console.error(e));
   }
 
-  postFoodReview(foodIdx, score, message) {
+  postFoodReview(foodIdx, { score, message }) {
     const header = new Headers({ 'Content-Type': 'application/json' });
 
     return this.http.post(`${FOOD_URL}/${foodIdx}/reviews`, JSON.stringify({ score, message }), { headers: header })

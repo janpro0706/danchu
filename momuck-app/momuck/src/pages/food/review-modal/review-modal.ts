@@ -1,31 +1,40 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { ViewController } from 'ionic-angular';
+import { ViewController, NavParams } from 'ionic-angular';
+import { ReviewService } from '../review-tab/review.service';
 
 @Component({
   selector: 'review-modal',
-  templateUrl: './review-modal.html'
+  templateUrl: './review-modal.html',
+  providers: [ ReviewService ]
 })
 export class ReviewModal {
   review = { score: 5, message: '' };
 
   constructor(private viewCtrl: ViewController,
-              private detector: ChangeDetectorRef) {
+              private detector: ChangeDetectorRef,
+              private params: NavParams,
+              private reviewService: ReviewService) {
 
   }
 
   onDismiss(e) {
     if (e.srcElement.className === 'dimmer') {
-      this.viewCtrl.dismiss('dismiss');
+      this.viewCtrl.dismiss();
     }
   }
 
   onCancel(e) {
-    this.viewCtrl.dismiss('cancel');
+    this.viewCtrl.dismiss();
   }
 
   onSubmit(e, review) {
-    // TODO: before dismiss, post the review and dismiss with data that newly posted review
-    this.viewCtrl.dismiss(review);
+    const foodIdx = this.params.get('foodIdx');
+    const { score, message } = this.review;
+
+    this.reviewService.postFoodReview(foodIdx, { score, message })
+      .then(rev => {
+        this.viewCtrl.dismiss(rev);
+      });
   }
 
   onStarClick(e, idx) {
@@ -35,7 +44,6 @@ export class ReviewModal {
 
   onTextChange(e, message) {
     // TODO: check input length or something else
-    // console.log('on text change');
   }
 
   range(idx) {

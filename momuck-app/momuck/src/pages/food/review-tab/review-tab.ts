@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 
 import { ReviewService } from './review.service';
@@ -11,6 +11,7 @@ import 'rxjs/add/operator/toPromise';
   providers: [ ReviewService ]
 })
 export class ReviewTab {
+  @ViewChild('content') content;
   reviews = [];
 
   constructor(private params: NavParams,
@@ -40,6 +41,7 @@ export class ReviewTab {
           .map(this.reviewMapper);
 
         this.reviews = [ ...recentReviews, ...this.reviews ];
+        this.content.scrollToTop(500);
       });
   }
 

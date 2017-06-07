@@ -25,5 +25,5 @@
     </ion-tabs>
   </div>
   <div class="btn-padding" style="height: 4.3rem"></div>
-  <button ion-button class="choose-btn"><ion-icon class="checkmark" name="checkmark"></ion-icon>  오늘은 이걸로</button>
+  <button ion-button (click)="onChoose($event)" class="choose-btn"><ion-icon class="checkmark" name="checkmark"></ion-icon>  오늘은 이걸로</button>
 </ion-content>

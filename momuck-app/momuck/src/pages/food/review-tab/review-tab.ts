@@ -20,6 +20,11 @@ export class ReviewTab implements OnInit {
 
     this.reviewService.getFoodReview(foodIdx, 0, 10)
       .then(reviews => {
+        if (!reviews) {
+          this.reviews = [];
+          return;
+        }
+        
         this.reviews = reviews.map(review => {
           // TODO: get author name using GET /profile
           const { user_seq: author, message, created: date, score: star } = review;

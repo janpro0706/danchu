@@ -1,0 +1,54 @@
+review-tab {
+  .review-content {
+    padding-left: 1.1rem;
+    padding-top: 1.3rem;
+  }
+
+  .review-tab-title {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #4a4a4a;
+  }
+
+  .review-list {
+    list-style-type: none;
+
+    li {
+      padding-bottom: 2rem;
+      margin-left: -30px;
+    }
+  }
+
+  .full-star {
+    color: #ffcd00;
+  }
+
+  .empty-star {
+    color: #c7c7cd;
+  }
+
+  .review-info {
+    .review-author {
+      font-size: 1.2rem;
+      color: #4a4a4a;
+      font-weight: 500;
+    }
+
+    .review-date {
+      font-size: 1.2rem;
+      color: #4a4a4a;
+      font-weight: 100;
+    }
+  }
+
+  .review-message {
+    font-size: 1.2rem;
+    color: #4a4a4a;
+    font-weight: 300;
+
+    p {
+      margin: 0;
+      padding: 0;
+    }
+  }
+}

@@ -1,0 +1,29 @@
+<!-- TODO: switch icon to more pretty one -->
+
+<ion-content>
+  <div class="main-img" [ngStyle]="{'background-image': 'url(' + mainImg + ')'}"></div>
+  <div class="img-padding"></div>
+  <div class="title">
+    <div class="main-title">
+      <span class="restaurant-name">{{ restaurantInfo.name }}</span>
+      <span class="menu-info">
+        <span class="star"><ion-icon name="star"></ion-icon> {{ restaurantInfo.avg_score }}</span>
+        <span class="price"><ion-icon name="logo-usd"></ion-icon> 7,000</span>
+      </span>
+    </div>
+    <div class="sub-title">
+      <span class="hashtags">#족발 #보쌈 #든든한한끼 #한식</span>
+      <span class="call"><ion-icon name="call"></ion-icon> 전화걸기</span>
+    </div>
+  </div>
+  <div class="tabs-container">
+    <ion-tabs tabsPlacement="top">
+      <ion-tab [root]="tabs.review.root" [rootParams]="tabs.review.params" tabTitle="리뷰보기"></ion-tab>
+      <ion-tab [root]="tabs.review.root" [rootParams]="tabs.review.params" tabTitle="다른메뉴"></ion-tab>
+      <ion-tab [root]="tabs.review.root" [rootParams]="tabs.review.params" tabTitle="이전리뷰"></ion-tab>
+      <ion-tab [root]="tabs.review.root" [rootParams]="tabs.review.params" tabTitle="음식점정보"></ion-tab>
+    </ion-tabs>
+  </div>
+  <div class="btn-padding" style="height: 4.3rem"></div>
+  <button ion-button (click)="onChoose($event)" class="choose-btn"><ion-icon class="checkmark" name="checkmark"></ion-icon>  오늘은 이걸로</button>
+</ion-content>

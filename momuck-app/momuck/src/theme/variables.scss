@@ -31,6 +31,20 @@ $colors: (
 $greyish-brown: #4a4a4a;
 $width: 100%;
 
+
+// food page variables
+$tabs-ios-tab-min-height: 3.5rem;
+$tabs-md-tab-min-height: 3.5rem;
+$tabs-wp-tab-min-height: 3.5rem;
+
+$tabs-ios-tab-text-color: #c7c7cd;
+$tabs-md-tab-text-color: #c7c7cd;
+$tabs-wp-tab-text-color: #c7c7cd;
+
+$tabs-ios-tab-text-color-active: #4a4a4a;
+$tabs-md-tab-text-color-active: #4a4a4a;
+$tabs-wp-tab-text-color-active: #4a4a4a;
+
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here

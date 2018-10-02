@@ -1,12 +1,17 @@
 import { Navigation } from 'react-native-navigation';
+import { Provider } from 'react-redux';
 
-import {
-    AppScreen
- } from './screens';
+import store from './stores';
+import AppScreen, { screen as appScreen } from './screens/AppScreen';
 
- import screens from './screens';
+function registerWithRedux(store, Provider) {
+    return (screenName, component) => {
+        Navigation.registerComponent(screenName, () => component, store, Provider);
+    };
+}
 
-export default () => {
-    console.log(screens);
-    Navigation.registerComponent('momuck.AppScreen', () => AppScreen);
+export default (store, Provider) => {
+    const register = registerWithRedux(store, Provider);
+
+    register(appScreen.screen, AppScreen);
 };

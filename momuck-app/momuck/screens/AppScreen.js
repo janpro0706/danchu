@@ -9,7 +9,10 @@
 import React, {Component} from 'react';
 import {Platform, Text, View} from 'react-native';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
+import { setUserName } from '../stores/reducers/rootReducer';
+import store from '../stores';
 
 const AppWelcomeText = styled.Text`
   font-size: 20px;
@@ -37,12 +40,15 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
+
 type Props = {};
 class AppScreen extends Component<Props> {
   render() {
+    const { userName } = this.props;
+
     return (
       <AppContainerView>
-        <AppWelcomeText>Welcome to Styled React Native!</AppWelcomeText>
+        <AppWelcomeText>Hello {userName}! Welcome to Styled React Native!</AppWelcomeText>
         <AppInstructionText>To get started, edit App.js</AppInstructionText>
         <AppInstructionText>{instructions}</AppInstructionText>
       </AppContainerView>
@@ -50,11 +56,21 @@ class AppScreen extends Component<Props> {
   }
 }
 
+// component navigation info
 const screen = {
     screen: 'momuck.AppScreen',
     title: 'App'
 };
 
-export { screen };
+const mapStateToProps = (state) => {
+  return {
+    userName: state.userName
+  };
+};
 
-export default AppScreen;
+const mapDispatchToProps = {
+  setUserName
+};
+
+export { screen };
+export default connect(mapStateToProps, mapDispatchToProps)(AppScreen);

@@ -11,8 +11,8 @@ import {Platform, Text, View} from 'react-native';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 
-import { setUserName } from '../stores/reducers/rootReducer';
-import store from '../stores';
+import { setUserName } from '../store/reducers/rootReducer';
+import store from '../store';
 
 const AppWelcomeText = styled.Text`
   font-size: 20px;

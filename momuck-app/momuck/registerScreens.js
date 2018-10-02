@@ -1,7 +1,7 @@
 import { Navigation } from 'react-native-navigation';
 import { Provider } from 'react-redux';
 
-import store from './stores';
+import store from './store';
 import AppScreen, { screen as appScreen } from './screens/AppScreen';
 
 function registerWithRedux(store, Provider) {

@@ -1,7 +1,12 @@
 import { Navigation } from 'react-native-navigation';
 
-import App from './App';
+import {
+    AppScreen
+ } from './screens';
+
+ import screens from './screens';
 
 export default () => {
-    Navigation.registerComponent('momuck.App', () => App);
+    console.log(screens);
+    Navigation.registerComponent('momuck.AppScreen', () => AppScreen);
 };

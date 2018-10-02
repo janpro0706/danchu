@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, Text, View} from 'react-native';
 import styled from 'styled-components';
 
 
@@ -38,7 +38,7 @@ const instructions = Platform.select({
 });
 
 type Props = {};
-export default class App extends Component<Props> {
+class AppScreen extends Component<Props> {
   render() {
     return (
       <AppContainerView>
@@ -50,21 +50,11 @@ export default class App extends Component<Props> {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+const screen = {
+    screen: 'momuck.AppScreen',
+    title: 'App'
+};
+
+export { screen };
+
+export default AppScreen;

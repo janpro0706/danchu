@@ -1,46 +1,22 @@
 {
-  "name": "ionic-hello-world",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
+  "name": "momuck",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
-    "clean": "ionic-app-scripts clean",
-    "build": "ionic-app-scripts build",
-    "ionic:build": "ionic-app-scripts build",
-    "ionic:serve": "ionic-app-scripts serve"
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
   },
   "dependencies": {
-      "@angular/common": "4.0.0",
-      "@angular/compiler": "4.0.0",
-      "@angular/compiler-cli": "4.0.0",
-      "@angular/core": "4.0.0",
-      "@angular/forms": "4.0.0",
-      "@angular/http": "4.0.0",
-      "@angular/platform-browser": "4.0.0",
-      "@angular/platform-browser-dynamic": "4.0.0",
-      "@ionic-native/core": "3.4.2",
-      "@ionic-native/keyboard": "^3.4.4",
-      "@ionic-native/splash-screen": "3.4.2",
-      "@ionic-native/status-bar": "3.4.2",
-      "@ionic/storage": "2.0.1",
-      "ionic-angular": "3.0.0",
-      "ionicons": "3.0.0",
-      "rxjs": "5.1.1",
-      "sw-toolbox": "3.4.0",
-      "zone.js": "^0.8.4"
-    },
-    "devDependencies": {
-      "@ionic/app-scripts": "1.3.0",
-      "typescript": "~2.2.1"
-    },
-  "cordovaPlugins": [
-    "cordova-plugin-statusbar",
-    "cordova-plugin-device",
-    "ionic-plugin-keyboard",
-    "cordova-plugin-splashscreen",
-    "cordova-plugin-whitelist",
-    "cordova-plugin-console"
-  ],
-  "cordovaPlatforms": [],
-  "description": "momuck: An Ionic project"
+    "react": "16.5.0",
+    "react-native": "0.57.1"
+  },
+  "devDependencies": {
+    "babel-jest": "23.6.0",
+    "jest": "23.6.0",
+    "metro-react-native-babel-preset": "0.47.0",
+    "react-test-renderer": "16.5.0"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
 }

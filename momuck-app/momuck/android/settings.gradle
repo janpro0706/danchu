@@ -1,0 +1,3 @@
+rootProject.name = 'momuck'
+
+include ':app'

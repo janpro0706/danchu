@@ -1,5 +1,5 @@
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 
-import { root } from './reducers';
+import * as reducers from './reducers';
 
-export default createStore(root);
+export default createStore(combineReducers(reducers));

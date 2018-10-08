@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react';
+import React, { Component, type Node } from 'react';
 import styled from 'styled-components';
 
 
@@ -10,7 +10,7 @@ const CenterView = styled.View`
 `;
 
 type Props = {
-
+    children: Node
 };
 
 class LoginView extends Component<Props> {

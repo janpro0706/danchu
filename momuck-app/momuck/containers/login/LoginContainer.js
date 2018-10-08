@@ -4,11 +4,15 @@ import { connect } from 'react-redux';
 import { bindActionCreators }from 'redux';
 
 import { LoginForm, LoginTitle } from '../../components/login';
-import { setId, setPassword, loginRequest } from '../../store/reducers/loginReducer';
+import loginReducer, { setId, setPassword, loginRequest } from '../../store/reducers/loginReducer';
 
 
 type Props = {
-
+    id: string,
+    password: string,
+    setId: (id: string) => void,
+    setPassword: (password: string) => void,
+    loginRequest: () => void
 };
 
 class LoginContainer extends Component<Props> {
@@ -35,6 +39,8 @@ class LoginContainer extends Component<Props> {
         );
     }
 }
+
+
 
 export default connect(
     (state) => ({

@@ -21,7 +21,11 @@ const LoginSubmitButton = styled.Button`
 `;
 
 type Props = {
-
+    id: string,
+    password: string,
+    setId: (id: string) => void,
+    setPassword: (password: string) => void,
+    loginRequest: () => void
 };
 
 class LoginForm extends Component<Props> {
@@ -33,14 +37,14 @@ class LoginForm extends Component<Props> {
                     maxLength={15}
                     autoCapitalize="none"
                     value={this.props.id || ''}
-                    onChangeText={(id) => this.props.setId(id)}
+                    onChangeText={(id: string) => this.props.setId(id)}
                 />
                 <LoginFormTextInput
                     placeholder="PW"
                     maxLength={15}
                     secureTextEntry
                     value={this.props.password || ''}
-                    onChangeText={(pw) => this.props.setPassword(pw)}
+                    onChangeText={(pw: string) => this.props.setPassword(pw)}
                 />
                 <LoginSubmitButton
                     title="로그인"

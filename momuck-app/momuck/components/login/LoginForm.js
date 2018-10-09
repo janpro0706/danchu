@@ -1,24 +1,38 @@
 // @flow
 import React, { Component } from 'react';
-import {
-    TextInput,
-    Button,
-    View
-} from 'react-native';
 import styled from 'styled-components';
+
+import { LoginButton } from '.';
 
 
 const LoginFormView = styled.View`
-    width: 40%;
+    width: 60%;
 `;
 
 const LoginFormTextInput = styled.TextInput`
     width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #F0F0F0;
+    opacity: 0.9;
+    border-radius: 30px;
+    color: black;
 `;
 
-const LoginSubmitButton = styled.Button`
-    width: 100%;
-`;
+const LoginSubmitButton = ({ text, onPress }: {
+    text: string,
+    onPress: Function
+}) => {
+    return (
+        <LoginButton
+            text={text}
+            onPress={onPress}
+            activeOpacity={0.7}
+            color="#DC143C"
+            underlayColor="#CB032B"
+        />
+    );
+}
 
 type Props = {
     id: string,
@@ -47,8 +61,8 @@ class LoginForm extends Component<Props> {
                     onChangeText={(pw: string) => this.props.setPassword(pw)}
                 />
                 <LoginSubmitButton
-                    title="로그인"
-                    onPress={this.props.loginRequest}
+                    text="로그인"
+                    onPress={() => console.log('hello')}
                 />
             </LoginFormView>
         );

@@ -8,8 +8,8 @@ import styled from 'styled-components';
 
 const LoginTitleText = styled.Text`
     font-size: 50;
-    padding-bottom: 100;
-    margin-top: -150;
+    padding-bottom: 50;
+    margin-top: -100;
 `;
 
 type Props = {
@@ -19,7 +19,7 @@ type Props = {
 class LoginTitle extends Component<Props> {
     render() {
         return (
-            <LoginTitleText>Momuck</LoginTitleText>
+            <LoginTitleText>MOMUCK</LoginTitleText>
         );
     }
 }

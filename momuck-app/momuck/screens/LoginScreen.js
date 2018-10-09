@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { LoginContainer } from '../containers/login';
 import { LoginView } from '../components/login';
 
-import { Dimmer } from '../components/base';
+import { Dimmer, Spinner } from '../components/base';
 
 
 type Props = {
@@ -21,7 +21,11 @@ class LoginScreen extends Component<Props> {
     render() {
         return (
             <LoginView>
-                {this.props.dimmer && <Dimmer />}
+                {this.props.dimmer && 
+                <React.Fragment>
+                    <Dimmer />
+                    <Spinner />
+                </React.Fragment>}
                 <LoginContainer />
             </LoginView>
         );

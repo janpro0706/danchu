@@ -37,6 +37,8 @@ const LoginSubmitButton = ({ text, onPress }: {
 type Props = {
     id: string,
     password: string,
+    isLogined: boolean,
+    isProgressing: boolean,
     setId: (id: string) => void,
     setPassword: (password: string) => void,
     loginRequest: () => void
@@ -62,7 +64,7 @@ class LoginForm extends Component<Props> {
                 />
                 <LoginSubmitButton
                     text="로그인"
-                    onPress={() => console.log('hello')}
+                    onPress={() => this.props.loginRequest()}
                 />
             </LoginFormView>
         );

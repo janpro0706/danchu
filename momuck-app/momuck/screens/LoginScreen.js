@@ -5,9 +5,12 @@ import { connect } from 'react-redux';
 import { LoginContainer } from '../containers/login';
 import { LoginView } from '../components/login';
 
+import { Dimmer } from '../components/base';
+
 
 type Props = {
-
+    isLogined: boolean,
+    dimmer: boolean
 };
 
 class LoginScreen extends Component<Props> {
@@ -18,6 +21,7 @@ class LoginScreen extends Component<Props> {
     render() {
         return (
             <LoginView>
+                {this.props.dimmer && <Dimmer />}
                 <LoginContainer />
             </LoginView>
         );
@@ -32,7 +36,8 @@ const screen = {
 export { screen };
 export default connect(
     (state) => ({
-        isLogined: state.login.isLogined
+        isLogined: state.login.request.isLogined,
+        dimmer: state.screen.dimmer
     }),
     {}
 )(LoginScreen);

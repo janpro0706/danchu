@@ -10,14 +10,14 @@ const SET_ID = `${PREFIX}/setId`;
 const SET_PASSWORD = `${PREFIX}/setPassword`;
 const LOGIN_SUCCEED = `${PREFIX}/loginSucceed`;
 const LOGIN_FAIL = `${PREFIX}/loginFail`;
-const LOGIN_REQUEST = `${PREFIX}/loginRequest`;
+const REQUEST_LOGIN = `${PREFIX}/requestLogin`;
 
 // state flow type
 type Id = string;
 type Password = string;
 type Request = {
     isLogined: boolean,
-    isProgressing: boolean
+    isPending: boolean
 };
 
 type Login = {
@@ -28,12 +28,12 @@ type Login = {
 
 // action flow types
 type SetIdAction = {
-    type: string,
+    type: 'momuck/login/setId',
     id: string
 };
 
 type SetPasswordAction = {
-    type: string,
+    type: 'momuck/login/setPassword',
     password: string
 };
 
@@ -68,18 +68,22 @@ function loginFail() {
     };
 }
 
-function loginRequest() {
-    return function(dispatch: any) {
+function requestLogin() {
+    return async function(dispatch: any) {
         dispatch({
-            type: LOGIN_REQUEST
+            type: REQUEST_LOGIN
         });
         dispatch(dimmerOn());
 
-        setTimeout(function() {
-            dispatch(loginSucceed());
-            dispatch(dimmerOff());
-        }, 3000);
-    }
+        return new Promise((resolve) => {
+            setTimeout(function() {
+                dispatch(loginSucceed());
+                dispatch(dimmerOff());
+                
+                resolve(true);
+            }, 3000);
+        });
+    };
 }
 
 // reducer
@@ -88,7 +92,7 @@ const initialState = {
     password: '',
     request: {
         isLogined: false,
-        isProgressing: false
+        isPending: false
     }
 };
 
@@ -116,18 +120,18 @@ function request(state: Request = initialState.request, action: TypeAction) {
             return {
                 ...state,
                 isLogined: true,
-                isProgressing: false
+                isPending: false
             };
         case LOGIN_FAIL:
             return {
                 ...state,
                 isLogined: false,
-                isProgressing: false
+                isPending: false
             };
-        case LOGIN_REQUEST:
+        case REQUEST_LOGIN:
             return {
                 ...state,
-                isProgressing: true
+                isPending: true
             };
         default:
             return state;
@@ -135,7 +139,7 @@ function request(state: Request = initialState.request, action: TypeAction) {
 }
 
 export {
-    setId, setPassword, loginRequest
+    setId, setPassword, requestLogin
 };
 export default combineReducers({
     id,

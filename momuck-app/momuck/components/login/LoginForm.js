@@ -41,7 +41,7 @@ type Props = {
     isProgressing: boolean,
     setId: (id: string) => void,
     setPassword: (password: string) => void,
-    loginRequest: () => void
+    requestLogin: () => void
 };
 
 class LoginForm extends Component<Props> {
@@ -64,7 +64,7 @@ class LoginForm extends Component<Props> {
                 />
                 <LoginSubmitButton
                     text="로그인"
-                    onPress={() => this.props.loginRequest()}
+                    onPress={() => this.props.requestLogin()}
                 />
             </LoginFormView>
         );

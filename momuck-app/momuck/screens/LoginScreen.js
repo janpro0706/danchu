@@ -4,19 +4,29 @@ import { connect } from 'react-redux';
 
 import { LoginContainer } from '../containers/login';
 import { LoginView } from '../components/login';
-
 import { Dimmer, Spinner } from '../components/base';
 
+import { requestLogin } from '../store/reducers/loginReducer';
 
 type Props = {
     isLogined: boolean,
-    dimmer: boolean
+    dimmer: boolean,
+    requestLogin: () => void,
+    navigator: any
 };
 
 class LoginScreen extends Component<Props> {
     static navigatorStyle = {
         navBarHidden: true
     };
+
+    onLoginRequest = async () => {
+        const ret = await this.props.requestLogin();
+        
+        if (ret === true) {
+            this.props.navigator.pop();
+        }
+    }
 
     render() {
         return (
@@ -26,7 +36,7 @@ class LoginScreen extends Component<Props> {
                     <Dimmer />
                     <Spinner />
                 </React.Fragment>}
-                <LoginContainer />
+                <LoginContainer requestLogin={this.onLoginRequest} />
             </LoginView>
         );
     }
@@ -43,5 +53,7 @@ export default connect(
         isLogined: state.login.request.isLogined,
         dimmer: state.screen.dimmer
     }),
-    {}
+    {
+        requestLogin
+    }
 )(LoginScreen);

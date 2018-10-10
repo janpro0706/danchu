@@ -1,13 +1,15 @@
 // @flow
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
 import { MenuListView } from '../components/menu-list';
 import { MenuListContainer } from '../containers/menu-list';
 
 
 type Props = {
-    navigator: any
+    navigator: any,
+    id: string
 };
 
 class MenuListScreen extends Component<Props> {
@@ -30,6 +32,10 @@ class MenuListScreen extends Component<Props> {
     onNavigatorEvent = (event: any) => {
         if (event.type === 'NavBarButtonPress') {
             console.log(event.id + ' pressed.');
+            
+            this.props.navigator.push({
+                screen: 'momuck.LoginScreen'
+            });
         }
     }
 
@@ -48,4 +54,9 @@ const screen = {
 };
 
 export { screen };
-export default MenuListScreen;
+export default connect(
+    (state) => ({
+        id: state.login.id
+    }),
+    {}
+)(MenuListScreen);

@@ -6,8 +6,7 @@ import { bindActionCreators }from 'redux';
 import { LoginForm, LoginTitle } from '../../components/login';
 import {
     setId,
-    setPassword,
-    loginRequest
+    setPassword
 } from '../../store/reducers/loginReducer';
 
 
@@ -18,7 +17,7 @@ type Props = {
     isProgressing: boolean,
     setId: (id: string) => void,
     setPassword: (password: string) => void,
-    loginRequest: () => void
+    requestLogin: () => void
 };
 
 class LoginContainer extends Component<Props> {
@@ -30,7 +29,7 @@ class LoginContainer extends Component<Props> {
             isProgressing,
             setId,
             setPassword,
-            loginRequest
+            requestLogin
         } = this.props;
 
         return (
@@ -39,7 +38,7 @@ class LoginContainer extends Component<Props> {
                 <LoginForm
                     setId={setId}
                     setPassword={setPassword}
-                    loginRequest={loginRequest}
+                    requestLogin={requestLogin}
                     id={id}
                     password={password}
                     isLogined={isLogined}
@@ -61,7 +60,6 @@ export default connect(
     }),
     {
         setId,
-        setPassword,
-        loginRequest
+        setPassword
     }
 )(LoginContainer);

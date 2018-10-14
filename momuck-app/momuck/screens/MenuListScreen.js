@@ -2,21 +2,25 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import { Navigation } from 'react-native-navigation';
 
 import { MenuListView } from '../components/menu-list';
 import { MenuListContainer } from '../containers/menu-list';
 
+import { setId } from '../store/reducers/loginReducer';
+
 
 type Props = {
     navigator: any,
-    id: string
+    id: string,
+    setId: (id: string) => void
 };
 
 class MenuListScreen extends Component<Props> {
     static navigatorButtons = {
         rightButtons: [
             {
-                title: 'Guest',
+                component: 'momuck.UserIcon',
                 id: 'user-icon',
                 buttonColor: 'crimson'
             }
@@ -30,12 +34,16 @@ class MenuListScreen extends Component<Props> {
     }
 
     onNavigatorEvent = (event: any) => {
-        if (event.type === 'NavBarButtonPress') {
-            console.log(event.id + ' pressed.');
-            
-            this.props.navigator.push({
-                screen: 'momuck.LoginScreen'
-            });
+        if (event.type === 'DeepLink' && event.link === 'momuck/navigation/user-icon') {
+            if (this.props.id === '') {
+                // go to LoginScreen when not logined
+                this.props.navigator.push({
+                    screen: 'momuck.LoginScreen'
+                });
+            } else {
+                // TODO: logout
+                this.props.setId('');
+            }
         }
     }
 
@@ -58,5 +66,7 @@ export default connect(
     (state) => ({
         id: state.login.id
     }),
-    {}
+    {
+        setId
+    }
 )(MenuListScreen);

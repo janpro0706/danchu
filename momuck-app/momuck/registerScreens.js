@@ -2,8 +2,10 @@ import { Navigation } from 'react-native-navigation';
 import { Provider } from 'react-redux';
 
 import store from './store';
+
 import LoginScreen, { screen as loginScreen } from './screens/LoginScreen';
 import MenuListScreen, { screen as menuListScreen } from './screens/MenuListScreen';
+import UserIcon, { info as userIconInfo } from './containers/navigator/UserIcon';
 
 function registerWithRedux(store, Provider) {
     return (screenName, component) => {
@@ -16,4 +18,5 @@ export default (store, Provider) => {
 
     register(loginScreen.screen, LoginScreen);
     register(menuListScreen.screen, MenuListScreen);
+    register(userIconInfo.screen, UserIcon);
 };

@@ -12,20 +12,22 @@ import styled from 'styled-components';
 import { PlaceholderImage } from '../base';
 
 
-const dummy = [
-    '족발', '치킨', '짜장면', '탕수육', '피자', '삼겹살', '닭발', '곱창', '파스타', '돈까스', '냉모밀', '스시', '회',
-];
-
 const ListItemText = styled.Text`
     padding: 10px;
     font-size: 18px;
 `;
 
-const ListItem = ({ text, image }: { text: string, image?: Element<typeof ImageBackground> }) => {
+const ListItem = (props: {
+    text: string,
+    img: string,
+    onPress: Function
+}) => {
+    const { text, img, onPress } = props;
+
     return (
-        <TouchableHighlight underlayColor="#909090" onPress={() => console.log(text + ' touced.')}>
+        <TouchableHighlight underlayColor="#909090" onPress={onPress}>
             <View>
-                {image || <PlaceholderImage />}
+                <PlaceholderImage source={img} ratio={0.75} />
                 <ListItemText>
                     {text}
                 </ListItemText>
@@ -35,16 +37,27 @@ const ListItem = ({ text, image }: { text: string, image?: Element<typeof ImageB
 };
 
 type Props = {
-
+    menus: [],
+    onMenuPress: (url: string) => void
 };
 
 class MenuFlatList extends Component<Props> {
     render() {
+        const renderItem = ({item}) => {
+            return (
+                <ListItem
+                    text={item.title}
+                    img={item.img}
+                    onPress={() => { this.props.onMenuPress(item.title) }}
+                />
+            );
+        };
+
         return (
             <View>
                 <FlatList
-                    data={dummy}
-                    renderItem={({item}) => (<ListItem text={item} />)}
+                    data={this.props.menus}
+                    renderItem={renderItem}
                     refreshing={false}
                     onRefresh={() => {}}
                 />

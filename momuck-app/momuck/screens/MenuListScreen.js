@@ -2,9 +2,16 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import {
+    ActivityIndicator,
+    View
+} from 'react-native';
 import { Navigation } from 'react-native-navigation';
 
-import { MenuListView } from '../components/menu-list';
+import {
+    MenuListView,
+    MenuListSpinner
+} from '../components/menu-list';
 import { MenuListContainer } from '../containers/menu-list';
 
 import { setId } from '../store/reducers/loginReducer';
@@ -13,6 +20,7 @@ import { setId } from '../store/reducers/loginReducer';
 type Props = {
     navigator: any,
     id: string,
+    isPending: boolean,
     setId: (id: string) => void
 };
 
@@ -50,6 +58,7 @@ class MenuListScreen extends Component<Props> {
     render() {
         return (
             <MenuListView>
+                <MenuListSpinner isPending={this.props.isPending} />
                 <MenuListContainer />
             </MenuListView>
         );
@@ -64,7 +73,8 @@ const screen = {
 export { screen };
 export default connect(
     (state) => ({
-        id: state.login.id
+        id: state.login.id,
+        isPending: state.menu.isPending
     }),
     {
         setId
